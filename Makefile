@@ -11,15 +11,17 @@ all: ./bin/ninja
 ./obj/src/ninja/main.o: src/ninja/main.cpp
 	$(CXX) $(CFLAG) $(CPPFLAGS) -o obj/src/ninja/main.o  -c  -I src/ src/ninja/main.cpp $(LDLIBS)
 
-./obj/src/libninja/libninja.a: ./obj/src/libninja/readingfile.o
-	ar rcs obj/src/libninja/libninja.a  obj/src/libninja/readingfile.o
+./obj/src/libninja/libninja.a: ./obj/src/libninja/readingfile.o ./obj/src/libninja/switcher.o
+	ar rcs obj/src/libninja/libninja.a  obj/src/libninja/readingfile.o obj/src/libninja/switcher.o 
 
 ./obj/src/libninja/readingfile.o: src/libninja/readingfile.cpp
 	$(CXX) $(CFLAG) $(CPPFLAGS)  -o obj/src/libninja/readingfile.o -c -I src/ src/libninja/readingfile.cpp
 
 
+./obj/src/libninja/switcher.o: src/libninja/switcher.cpp
+	$(CXX) $(CFLAG) $(CPPFLAGS)  -o obj/src/libninja/switcher.o -c -I src/ src/libninja/switcher.cpp
 
--include obj/src/libninja/readingfile.d obj/src/ninja/main.d
+-include obj/src/libninja/readingfile.d obj/src/libninja/switcher.d obj/src/ninja/main.d
 
 .PHONY: clean
 clean:
