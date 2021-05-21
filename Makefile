@@ -12,7 +12,7 @@ all: ./bin/ninja
 	$(CXX) $(CFLAG) $(CPPFLAGS) -o obj/src/ninja/main.o  -c  -I src/ src/ninja/main.cpp $(LDLIBS)
 
 ./obj/src/libninja/libninja.a: ./obj/src/libninja/readingfile.o ./obj/src/libninja/switcher.o
-	ar rcs obj/src/libninja/libninja.a  obj/src/libninja/readingfile.o obj/src/libninja/switcher.o $(LDLIBS)
+	ar rcs obj/src/libninja/libninja.a  obj/src/libninja/readingfile.o obj/src/libninja/switcher.o 
 
 ./obj/src/libninja/readingfile.o: src/libninja/readingfile.cpp
 	$(CXX) $(CFLAG) $(CPPFLAGS)  -o obj/src/libninja/readingfile.o -c -I src/ src/libninja/readingfile.cpp

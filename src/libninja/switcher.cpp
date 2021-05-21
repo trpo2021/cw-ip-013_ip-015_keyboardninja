@@ -38,11 +38,10 @@ void switcher(int menuNum, int *A, int N)
         A[10] = 323;
         A[11] = 85;
         break;
-    case 3:
+    
+    default:
         for (int i = 0; i < 12; i++)
             A[i] = 0;
-        break;
-    default:
         break;
     }
 }
