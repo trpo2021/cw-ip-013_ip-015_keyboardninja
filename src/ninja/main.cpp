@@ -31,7 +31,7 @@ int main() {
   if (!font.loadFromFile("fonts/19939.otf")) {
     std::cout << "ERROR" << std::endl;
   }
-  //bool flag = false;
+  bool flag = false;
   sf::Text text;
   std::string utf8 = lines[0];
   text.setFont(font);
@@ -129,6 +129,108 @@ int main() {
             menuNum = 0;
           }
         }
+      }
+    }
+    while (menuNum == 2)
+    {
+      while (window.pollEvent(event))
+      {
+        if (event.type == Event::Closed)
+        {
+          window.close();
+          menuNum = 0;
+          ismenu = false;
+        }
+      } 
+      window.draw(menuBg1);
+      window.display();
+
+      if (IntRect(position[0], position[1], position[2], position[3]).contains(Mouse::getPosition(window)))
+      {
+
+        if ((Mouse::isButtonPressed(Mouse::Left)) && (!naj))
+        {
+          naj = true;
+        }
+        while (window.pollEvent(event))
+        {
+          if ((event.type == sf::Event::MouseButtonReleased) && (naj) && (event.mouseButton.button == Mouse::Left))
+          {
+            /////////
+            menuNum = 3;
+            switcher(menuNum, position, 12);
+            
+           
+            window.clear();
+            if (flag == true)
+              window.draw(RightLetter);
+            window.draw(text);
+            window.display();
+            ///
+            naj = false;
+          }
+        }
+      }
+
+      if (IntRect(position[4], position[5], position[6], position[7]).contains(Mouse::getPosition(window)))
+      {
+
+        if ((Mouse::isButtonPressed(Mouse::Left)) && (!naj))
+        {
+          naj = true;
+        }
+        while (window.pollEvent(event))
+        {
+          if ((event.type == sf::Event::MouseButtonReleased) && (naj) && (event.mouseButton.button == Mouse::Left))
+          {
+
+            menuNum = 3;
+            switcher(menuNum, position, 12);
+
+            window.clear();
+            if (flag == true)
+              window.draw(RightLetter);
+            window.draw(text);
+            window.display();
+            ///
+            naj = false;
+          }
+        }
+      }
+
+      if (IntRect(position[8], position[9], position[10], position[11]).contains(Mouse::getPosition(window)))
+      {
+
+        if ((Mouse::isButtonPressed(Mouse::Left)) && (!naj))
+        {
+          naj = true;
+        }
+        while (window.pollEvent(event))
+        {
+          if ((event.type == sf::Event::MouseButtonReleased) && (naj) && (event.mouseButton.button == Mouse::Left))
+          {
+
+            menuNum = 3;
+            switcher(menuNum, position, 12);
+
+            window.clear();
+            if (flag == true)
+              window.draw(RightLetter);
+            window.draw(text);
+            window.display();
+            ///
+            naj = false;
+          }
+        }
+      }
+
+      if (Keyboard::isKeyPressed(Keyboard::Escape))
+      {
+        menuNum = 1;
+        switcher(menuNum, position, 12);
+        menuBackground1.loadFromFile("images/fon.jpg");
+        Sprite menuBg1(menuBackground1);
+        menuBg1.setPosition(0, 0);
       }
     }
   }
