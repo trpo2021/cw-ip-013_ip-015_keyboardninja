@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <libninja/readingfile.hpp>
+#include <libninja/switcher.hpp>
 #include <sstream>
 
 int main() {
@@ -11,7 +12,7 @@ int main() {
     std::cout << "Error" << std::endl;
     return 1;
   }
-  sf::RenderWindow window(sf::VideoMode(1000, 1000), "SFML works!");
+  sf::RenderWindow window(sf::VideoMode(1050, 660), "SFML works!");
   sf::Font font;
   if (!font.loadFromFile("fonts/19939.otf")) {
     std::cout << "ERROR" << std::endl;
