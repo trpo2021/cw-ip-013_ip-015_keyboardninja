@@ -45,7 +45,7 @@ int main() {
   RightLetter.setString(sf::String::fromUtf8(utf88.begin(), utf88.end()));
   RightLetter.setFont(font);
   RightLetter.setCharacterSize(24);
-  RightLetter.setFillColor(sf::Color::Green);
+  RightLetter.setFillColor(sf::Color::Black);
   RightLetter.setStyle(sf::Text::Bold);
   RightLetter.setPosition(100, 300);
   while (ismenu)
@@ -146,8 +146,11 @@ int main() {
           if ((event.type == sf::Event::MouseButtonReleased) && (naj) && (event.mouseButton.button == Mouse::Left))
           {
             menuNum = 4;
-            switcher(menuNum, position, 12);
             window.clear();
+            menuBackground1.loadFromFile("images/fon3.jpg");
+            Sprite menuBg1(menuBackground1);
+            menuBg1.setPosition(0, 0);
+            switcher(menuNum, position, 12);
             if (flag == true)
               window.draw(RightLetter);
             window.draw(text);
@@ -168,6 +171,9 @@ int main() {
           if ((event.type == sf::Event::MouseButtonReleased) && (naj) && (event.mouseButton.button == Mouse::Left))
           {
             menuNum = 4;
+            menuBackground1.loadFromFile("images/fon3.jpg");
+            Sprite menuBg1(menuBackground1);
+            menuBg1.setPosition(0, 0);
             switcher(menuNum, position, 12);
             window.clear();
             if (flag == true)
@@ -189,6 +195,9 @@ int main() {
           if ((event.type == sf::Event::MouseButtonReleased) && (naj) && (event.mouseButton.button == Mouse::Left))
           {
             menuNum = 4;
+            menuBackground1.loadFromFile("images/fon3.jpg");
+            Sprite menuBg1(menuBackground1);
+            menuBg1.setPosition(0, 0);
             switcher(menuNum, position, 12);
             naj = false;
           }
@@ -242,10 +251,16 @@ int main() {
           flag = true;
         }
       }
-      window.clear();
+      window.draw(menuBg1);
       if (flag == true)
         window.draw(RightLetter);
-      window.draw(text);
+      for (int i = 0; i < count; i++)
+      {
+      	text.setString(String::fromUtf8(lines[i].begin(), lines[i].end()));
+				text.setPosition(30, i*25);
+				text.setFillColor(Color::Black);
+      	window.draw(text);
+      }
       window.display();
       if (Keyboard::isKeyPressed(Keyboard::Escape))
       {
@@ -256,7 +271,7 @@ int main() {
         menuBg1.setPosition(0, 0);
       }
     }
-      
+    
   }
   return 0;
 }
