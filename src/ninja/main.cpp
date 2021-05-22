@@ -45,7 +45,7 @@ int main() {
   RightLetter.setString(sf::String::fromUtf8(utf88.begin(), utf88.end()));
   RightLetter.setFont(font);
   RightLetter.setCharacterSize(24);
-  RightLetter.setFillColor(sf::Color::Green);
+  RightLetter.setFillColor(sf::Color::Black);
   RightLetter.setStyle(sf::Text::Bold);
   RightLetter.setPosition(100, 300);
   while (ismenu)
@@ -151,7 +151,6 @@ int main() {
             Sprite menuBg1(menuBackground1);
             menuBg1.setPosition(0, 0);
             switcher(menuNum, position, 12);
-            //
             if (flag == true)
               window.draw(RightLetter);
             window.draw(text);
@@ -252,13 +251,16 @@ int main() {
           flag = true;
         }
       }
-      //menuBackground1.loadFromFile("images/fon3.jpg");
-      //Sprite menuBg1(menuBackground1);
-      //menuBg1.setPosition(0, 0);
       window.draw(menuBg1);
       if (flag == true)
         window.draw(RightLetter);
-      window.draw(text);
+      for (int i = 0; i < count; i++)
+      {
+      	text.setString(String::fromUtf8(lines[i].begin(), lines[i].end()));
+				text.setPosition(30, i*25);
+				text.setFillColor(Color::Black);
+      	window.draw(text);
+      }
       window.display();
       if (Keyboard::isKeyPressed(Keyboard::Escape))
       {
@@ -269,7 +271,7 @@ int main() {
         menuBg1.setPosition(0, 0);
       }
     }
-      
+    
   }
   return 0;
 }
