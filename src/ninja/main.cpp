@@ -146,8 +146,12 @@ int main() {
           if ((event.type == sf::Event::MouseButtonReleased) && (naj) && (event.mouseButton.button == Mouse::Left))
           {
             menuNum = 4;
-            switcher(menuNum, position, 12);
             window.clear();
+            menuBackground1.loadFromFile("images/fon3.jpg");
+            Sprite menuBg1(menuBackground1);
+            menuBg1.setPosition(0, 0);
+            switcher(menuNum, position, 12);
+            //
             if (flag == true)
               window.draw(RightLetter);
             window.draw(text);
@@ -168,6 +172,9 @@ int main() {
           if ((event.type == sf::Event::MouseButtonReleased) && (naj) && (event.mouseButton.button == Mouse::Left))
           {
             menuNum = 4;
+            menuBackground1.loadFromFile("images/fon3.jpg");
+            Sprite menuBg1(menuBackground1);
+            menuBg1.setPosition(0, 0);
             switcher(menuNum, position, 12);
             window.clear();
             if (flag == true)
@@ -189,6 +196,9 @@ int main() {
           if ((event.type == sf::Event::MouseButtonReleased) && (naj) && (event.mouseButton.button == Mouse::Left))
           {
             menuNum = 4;
+            menuBackground1.loadFromFile("images/fon3.jpg");
+            Sprite menuBg1(menuBackground1);
+            menuBg1.setPosition(0, 0);
             switcher(menuNum, position, 12);
             naj = false;
           }
@@ -242,7 +252,10 @@ int main() {
           flag = true;
         }
       }
-      window.clear();
+      //menuBackground1.loadFromFile("images/fon3.jpg");
+      //Sprite menuBg1(menuBackground1);
+      //menuBg1.setPosition(0, 0);
+      window.draw(menuBg1);
       if (flag == true)
         window.draw(RightLetter);
       window.draw(text);
