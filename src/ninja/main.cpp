@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <libninja/exercise.hpp>
 #include <libninja/readingfile.hpp>
 #include <libninja/switcher.hpp>
 #include <sstream>
@@ -14,8 +15,11 @@ int main() {
   bool naj = false;
   ///////
   int count;
+  long unsigned int current_letter = 0;
+  int current_string = 0;
+  int strings_to_print = 0;
   string *lines = nullptr;
-  count = GetStringsFromFileS("texts/rus.txt", &lines);
+  count = GetStringsFromFileS("texts/eng.txt", &lines);
   if (count < 0) {
     std::cout << "Error" << std::endl;
     return 1;
@@ -31,7 +35,7 @@ int main() {
   if (!font.loadFromFile("fonts/19939.otf")) {
     std::cout << "ERROR" << std::endl;
   }
-  bool flag = false;
+  bool print_correct_letter = false;
   sf::Text text;
   std::string utf8 = lines[0];
   text.setFont(font);
@@ -41,22 +45,20 @@ int main() {
   text.setStyle(sf::Text::Bold);
   text.setPosition(100, 200);
   sf::Text RightLetter;
-  std::string utf88 = "49";
-  RightLetter.setString(sf::String::fromUtf8(utf88.begin(), utf88.end()));
+  std::string utf88;
   RightLetter.setFont(font);
   RightLetter.setCharacterSize(24);
   RightLetter.setFillColor(sf::Color::Black);
   RightLetter.setStyle(sf::Text::Bold);
-  RightLetter.setPosition(100, 300);
-  while (ismenu)
-  {
+  RightLetter.setPosition(200, 500);
+  while (ismenu) {
     sf::Event event;
-    while (menuNum == 1)
-    {
-      while (window.pollEvent(event))
-      {
-        if (event.type == Event::Closed)
-        {
+    print_correct_letter = false;
+    utf88.clear();
+    current_letter = 0;
+    while (menuNum == 1) {
+      while (window.pollEvent(event)) {
+        if (event.type == Event::Closed) {
           window.close();
           menuNum = 0;
           ismenu = false;
@@ -65,93 +67,80 @@ int main() {
       window.draw(menuBg1);
       window.display();
       switcher(menuNum, position, 12);
-      if (IntRect(position[0], position[1], position[2], position[3]).contains(Mouse::getPosition(window)))
-      {
-        if ((Mouse::isButtonPressed(Mouse::Left)) && (!naj))
-        {
+      if (IntRect(position[0], position[1], position[2], position[3])
+              .contains(Mouse::getPosition(window))) {
+        if ((Mouse::isButtonPressed(Mouse::Left)) && (!naj)) {
           naj = true;
         }
-        while (window.pollEvent(event))
-        {
-          if ((event.type == sf::Event::MouseButtonReleased) && (naj) && (event.mouseButton.button == Mouse::Left))
-          {
+        while (window.pollEvent(event)) {
+          if ((event.type == sf::Event::MouseButtonReleased) && (naj) &&
+              (event.mouseButton.button == Mouse::Left)) {
             menuNum = 2;
             switcher(menuNum, position, 12);
             menuBackground1.loadFromFile("images/fon1.jpg");
             Sprite menuBg1(menuBackground1);
             menuBg1.setPosition(0, 0);
             naj = false;
-            
           }
         }
       }
-      if (IntRect(position[4], position[5], position[6], position[7]).contains(Mouse::getPosition(window)))
-      {
-        if ((Mouse::isButtonPressed(Mouse::Left)) && (!naj))
-        {
+      if (IntRect(position[4], position[5], position[6], position[7])
+              .contains(Mouse::getPosition(window))) {
+        if ((Mouse::isButtonPressed(Mouse::Left)) && (!naj)) {
           naj = true;
         }
-        while (window.pollEvent(event))
-        {
-          if ((event.type == sf::Event::MouseButtonReleased) && (naj) && (event.mouseButton.button == Mouse::Left))
-          {
+        while (window.pollEvent(event)) {
+          if ((event.type == sf::Event::MouseButtonReleased) && (naj) &&
+              (event.mouseButton.button == Mouse::Left)) {
             menuNum = 3;
             switcher(menuNum, position, 12);
             menuBackground1.loadFromFile("images/fon2.jpg");
             Sprite menuBg1(menuBackground1);
             menuBg1.setPosition(0, 0);
             naj = false;
-            
           }
         }
       }
-      if (IntRect(position[8], position[9], position[10], position[11]).contains(Mouse::getPosition(window)))
-      {
+      if (IntRect(position[8], position[9], position[10], position[11])
+              .contains(Mouse::getPosition(window))) {
 
-        if ((Mouse::isButtonPressed(Mouse::Left)) && (!naj))
-        {
+        if ((Mouse::isButtonPressed(Mouse::Left)) && (!naj)) {
           naj = true;
         }
-        while (window.pollEvent(event))
-        {
-          if ((event.type == sf::Event::MouseButtonReleased) && (naj) && (event.mouseButton.button == Mouse::Left))
-          {
+        while (window.pollEvent(event)) {
+          if ((event.type == sf::Event::MouseButtonReleased) && (naj) &&
+              (event.mouseButton.button == Mouse::Left)) {
             ismenu = false;
             menuNum = 0;
           }
         }
       }
     }
-    while (menuNum == 2)
-    {
-      while (window.pollEvent(event))
-      {
-        if (event.type == Event::Closed)
-        {
+    while (menuNum == 2) {
+      while (window.pollEvent(event)) {
+        if (event.type == Event::Closed) {
           window.close();
           menuNum = 0;
           ismenu = false;
         }
-      } 
+      }
       window.draw(menuBg1);
       window.display();
-      if (IntRect(position[0], position[1], position[2], position[3]).contains(Mouse::getPosition(window)))
-      {
-        if ((Mouse::isButtonPressed(Mouse::Left)) && (!naj))
-        {
+      if (IntRect(position[0], position[1], position[2], position[3])
+              .contains(Mouse::getPosition(window))) {
+        if ((Mouse::isButtonPressed(Mouse::Left)) && (!naj)) {
           naj = true;
         }
-        while (window.pollEvent(event))
-        {
-          if ((event.type == sf::Event::MouseButtonReleased) && (naj) && (event.mouseButton.button == Mouse::Left))
-          {
+        while (window.pollEvent(event)) {
+          if ((event.type == sf::Event::MouseButtonReleased) && (naj) &&
+              (event.mouseButton.button == Mouse::Left)) {
             menuNum = 4;
             window.clear();
             menuBackground1.loadFromFile("images/fon3.jpg");
             Sprite menuBg1(menuBackground1);
             menuBg1.setPosition(0, 0);
             switcher(menuNum, position, 12);
-            if (flag == true)
+            if (print_correct_letter == true)
               window.draw(RightLetter);
             window.draw(text);
             window.display();
@@ -160,23 +149,21 @@ int main() {
           }
         }
       }
-      if (IntRect(position[4], position[5], position[6], position[7]).contains(Mouse::getPosition(window)))
-      {
-        if ((Mouse::isButtonPressed(Mouse::Left)) && (!naj))
-        {
+      if (IntRect(position[4], position[5], position[6], position[7])
+              .contains(Mouse::getPosition(window))) {
+        if ((Mouse::isButtonPressed(Mouse::Left)) && (!naj)) {
           naj = true;
         }
-        while (window.pollEvent(event))
-        {
-          if ((event.type == sf::Event::MouseButtonReleased) && (naj) && (event.mouseButton.button == Mouse::Left))
-          {
+        while (window.pollEvent(event)) {
+          if ((event.type == sf::Event::MouseButtonReleased) && (naj) &&
+              (event.mouseButton.button == Mouse::Left)) {
             menuNum = 4;
             menuBackground1.loadFromFile("images/fon3.jpg");
             Sprite menuBg1(menuBackground1);
             menuBg1.setPosition(0, 0);
             switcher(menuNum, position, 12);
             window.clear();
-            if (flag == true)
+            if (print_correct_letter == true)
               window.draw(RightLetter);
             window.draw(text);
             window.display();
@@ -184,16 +171,14 @@ int main() {
           }
         }
       }
-      if (IntRect(position[8], position[9], position[10], position[11]).contains(Mouse::getPosition(window)))
-      {
-        if ((Mouse::isButtonPressed(Mouse::Left)) && (!naj))
-        {
+      if (IntRect(position[8], position[9], position[10], position[11])
+              .contains(Mouse::getPosition(window))) {
+        if ((Mouse::isButtonPressed(Mouse::Left)) && (!naj)) {
           naj = true;
         }
-        while (window.pollEvent(event))
-        {
-          if ((event.type == sf::Event::MouseButtonReleased) && (naj) && (event.mouseButton.button == Mouse::Left))
-          {
+        while (window.pollEvent(event)) {
+          if ((event.type == sf::Event::MouseButtonReleased) && (naj) &&
+              (event.mouseButton.button == Mouse::Left)) {
             menuNum = 4;
             menuBackground1.loadFromFile("images/fon3.jpg");
             Sprite menuBg1(menuBackground1);
@@ -204,8 +189,7 @@ int main() {
         }
       }
 
-      if (Keyboard::isKeyPressed(Keyboard::Escape))
-      {
+      if (Keyboard::isKeyPressed(Keyboard::Escape)) {
         menuNum = 1;
         switcher(menuNum, position, 12);
         menuBackground1.loadFromFile("images/fon.jpg");
@@ -213,12 +197,9 @@ int main() {
         menuBg1.setPosition(0, 0);
       }
     }
-    while (menuNum == 3)
-    {
-      while (window.pollEvent(event))
-      {
-        if (event.type == Event::Closed)
-        {
+    while (menuNum == 3) {
+      while (window.pollEvent(event)) {
+        if (event.type == Event::Closed) {
           window.close();
           menuNum = 0;
           ismenu = false;
@@ -226,8 +207,7 @@ int main() {
       }
       window.draw(menuBg1);
       window.display();
-      if (Keyboard::isKeyPressed(Keyboard::Escape))
-      {
+      if (Keyboard::isKeyPressed(Keyboard::Escape)) {
         menuNum = 1;
         switcher(menuNum, position, 12);
         menuBackground1.loadFromFile("images/fon.jpg");
@@ -235,35 +215,29 @@ int main() {
         menuBg1.setPosition(0, 0);
       }
     }
-    while (menuNum == 4)
-    {
-      while (window.pollEvent(event))
-      {
-        if (event.type == Event::Closed)
-        {
+    while (menuNum == 4) {
+      while (window.pollEvent(event)) {
+        if (event.type == Event::Closed) {
           window.close();
           menuNum = 0;
           ismenu = false;
         }
-        if (event.type == sf::Event::KeyPressed)
-        {
-          std::cout << "Key Pressed " << event.key.code << "\n";
-          flag = true;
-        }
+        Exercise(event, &print_correct_letter, &current_letter, lines, utf88,
+                 &current_string);
       }
+      RightLetter.setString(sf::String::fromUtf8(utf88.begin(), utf88.end()));
       window.draw(menuBg1);
-      if (flag == true)
+      if (print_correct_letter == true)
         window.draw(RightLetter);
-      for (int i = 0; i < count; i++)
-      {
-      	text.setString(String::fromUtf8(lines[i].begin(), lines[i].end()));
-				text.setPosition(30, i*25);
-				text.setFillColor(Color::Black);
-      	window.draw(text);
+      for (strings_to_print = 0; strings_to_print < count; strings_to_print++) {
+        text.setString(String::fromUtf8(lines[strings_to_print].begin(),
+                                        lines[strings_to_print].end()));
+        text.setPosition(30, (strings_to_print * 25) - (current_string * 25));
+        text.setFillColor(Color::Black);
+        window.draw(text);
       }
       window.display();
-      if (Keyboard::isKeyPressed(Keyboard::Escape))
-      {
+      if (Keyboard::isKeyPressed(Keyboard::Escape)) {
         menuNum = 2;
         switcher(menuNum, position, 12);
         menuBackground1.loadFromFile("images/fon1.jpg");
@@ -271,7 +245,6 @@ int main() {
         menuBg1.setPosition(0, 0);
       }
     }
-    
   }
   return 0;
 }
