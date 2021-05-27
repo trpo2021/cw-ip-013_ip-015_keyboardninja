@@ -5,11 +5,14 @@
 #include <sstream>
 
 using namespace sf;
-void timer(int lvl, double &curtime);
-void gameloop(int lvl);
-double curtime = 0; 
+
+void gameloop(int lvl, sf::Event &event, bool print_correct_letter,
+              long unsigned int current_letter, std::string lines[],
+              std::string &utf88, int current_string);
+ 
 int main() {
-  setlocale(LC_ALL, "Russian");
+  setlocale(LC_ALL, "Russian");    
+  Clock clock;int elaps = 0;
   ///////
   int position[12];
   int menuNum = 1;
@@ -53,6 +56,14 @@ int main() {
   RightLetter.setFillColor(sf::Color::Black);
   RightLetter.setStyle(sf::Text::Bold);
   RightLetter.setPosition(200, 500);
+  sf::Text timer;
+  std::string time = "Времени осталось: ";
+  timer.setFont(font);
+  timer.setString(sf::String::fromUtf8(time.begin(), time.end()));
+  timer.setCharacterSize(24);
+  timer.setFillColor(sf::Color::Black);
+  timer.setStyle(sf::Text::Bold);
+  timer.setPosition(10, 600);
   while (ismenu) {
     sf::Event event;
     print_correct_letter = false;
@@ -137,6 +148,11 @@ int main() {
           if ((event.type == sf::Event::MouseButtonReleased) && (naj) &&
               (event.mouseButton.button == Mouse::Left)) {
             menuNum = 4;
+                        //clock
+         
+        elaps = clock.restart().asSeconds();
+        
+            //
             window.clear();
             menuBackground1.loadFromFile("images/fon3.jpg");
             Sprite menuBg1(menuBackground1);
@@ -144,7 +160,7 @@ int main() {
             switcher(menuNum, position, 12);
             if (print_correct_letter == true)
               window.draw(RightLetter);
-            window.draw(text);
+            window.draw(text); 
             window.display();
 
             naj = false;
@@ -218,6 +234,13 @@ int main() {
       }
     }
     while (menuNum == 4) {
+    elaps = (180 - clock.getElapsedTime().asSeconds()) / 60;
+    time = "Времени осталось: ";
+    time += std::to_string(elaps);
+    time += ":";
+    elaps = (int)(180 - clock.getElapsedTime().asSeconds()) % (int)60;
+    time += std::to_string(elaps);
+    timer.setString(sf::String::fromUtf8(time.begin(), time.end()));
       while (window.pollEvent(event)) {
         if (event.type == Event::Closed) {
           window.close();
@@ -236,14 +259,11 @@ int main() {
                                         lines[strings_to_print].end()));
         text.setPosition(30, (strings_to_print * 25) - (current_string * 25));
         text.setFillColor(Color::Black);
-        window.draw(text);
-      }//
-
+        window.draw(text); window.draw(timer);
+      }
       window.display(); 
-      //gameloop(0);
       if (Keyboard::isKeyPressed(Keyboard::Escape))
       {
-      //
         menuNum = 2;
         switcher(menuNum, position, 12);
         menuBackground1.loadFromFile("images/fon1.jpg");
@@ -257,10 +277,13 @@ int main() {
 
 //game//
 
-void gameloop(int lvl) 
+void gameloop(int lvl, sf::Event &event, bool print_correct_letter,
+              long unsigned int current_letter, std::string lines[],
+              std::string &utf88, int current_string) 
 {/*
 	int starttime, bonusseries; 
 	float penalty, bonus;*/
+	
 	switch(lvl)
 	{
 		case 0:
@@ -287,6 +310,8 @@ void gameloop(int lvl)
 	double elaps = clock.restart().asSeconds();
 	while(!gameover)  
 	{
+		Exercise(event, &print_correct_letter, &current_letter, lines, utf88, &current_string);
+
 		elaps = clock.getElapsedTime().asSeconds();
 		std::cout << elaps << "\n";
 		if (Keyboard::isKeyPressed(Keyboard::Escape))
