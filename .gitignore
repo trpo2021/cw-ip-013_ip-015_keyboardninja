@@ -1,5 +1,5 @@
 bin/ninja
-bin/test
+bin/test-app
 obj/src/libninja/*.o
 obj/src/ninja/*.o
 obj/src/libninja/*.d
