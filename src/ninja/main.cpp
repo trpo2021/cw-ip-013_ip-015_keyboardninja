@@ -4,7 +4,9 @@
 #include <sstream>
 
 using namespace sf;
-
+void timer(int lvl, double &curtime);
+void gameloop(int lvl);
+double curtime = 0; 
 int main() {
   setlocale(LC_ALL, "Russian");
   ///////
@@ -261,7 +263,7 @@ int main() {
 				text.setFillColor(Color::Black);
       	window.draw(text);
       }
-      window.display();
+      window.display(); gameloop(0);//timer(0, curtime); /////// 
       if (Keyboard::isKeyPressed(Keyboard::Escape))
       {
         menuNum = 2;
@@ -274,4 +276,45 @@ int main() {
     
   }
   return 0;
+}
+
+//game//
+
+void gameloop(int lvl) 
+{/*
+	int starttime, bonusseries; 
+	float penalty, bonus;*/
+	switch(lvl)
+	{
+		case 0:
+			/*starttime = 180;
+			penalty = 1;
+			bonusseries = 20;
+			bonus = 1.5;*/
+			break;
+		case 1:
+			/*starttime = 180;
+			penalty = 2;
+			bonusseries = 30;
+			bonus = 1;*/
+			break;
+		case 2:
+			/*starttime = 120;
+			penalty = 3.5;
+			bonusseries = 40;
+			bonus = 1;*/
+			break;
+	}
+	bool gameover = false;
+	Clock clock;
+	double elaps = clock.restart().asSeconds();
+	while(!gameover)  
+	{
+		elaps = clock.getElapsedTime().asSeconds();
+		std::cout << elaps << "\n";
+		if (Keyboard::isKeyPressed(Keyboard::Escape))
+      {
+      	return;
+      }
+	}
 }
