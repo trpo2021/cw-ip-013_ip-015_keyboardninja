@@ -1,31 +1,57 @@
-CXX = g++
-CFLAG = -Wall -Werror
-CPPFLAGS = -MMD -I sfml/include
-LDLIBS = -L sfml/lib -lsfml-graphics -lsfml-audio -lsfml-window -lsfml-system
+APP_NAME = ninja
+LIB_NAME = libninja
 
-all: ./bin/ninja
 
-./bin/ninja:  ./obj/src/ninja/main.o ./obj/src/libninja/libninja.a
-	$(CXX) $(CFLAG)   obj/src/ninja/main.o obj/src/libninja/libninja.a -o bin/ninja $(LDLIBS)
+CFLAGS = -Wall -Werror
+CPPFLAGS = -MMD -I sfml/include -I src
 
-./obj/src/ninja/main.o: src/ninja/main.cpp
-	$(CXX) $(CFLAG) $(CPPFLAGS) -o obj/src/ninja/main.o  -c  -I src/ src/ninja/main.cpp $(LDLIBS)
+PATH_SFML =  sfml/lib
+LIBS = -L $(PATH_SFML) -Wl,-rpath=sfml/lib  -lsfml-graphics -lsfml-window -lsfml-system
 
-./obj/src/libninja/libninja.a: ./obj/src/libninja/readingfile.o ./obj/src/libninja/switcher.o ./obj/src/libninja/exercise.o
-	ar rcs obj/src/libninja/libninja.a  obj/src/libninja/readingfile.o obj/src/libninja/switcher.o obj/src/libninja/exercise.o
+CC = g++
+CXX = clang++
 
-./obj/src/libninja/readingfile.o: src/libninja/readingfile.cpp
-	$(CXX) $(CFLAG) $(CPPFLAGS)  -o obj/src/libninja/readingfile.o -c -I src/ src/libninja/readingfile.cpp
+BIN_DIR = bin
+OBJ_DIR = obj
+SRC_DIR = src
+SFML_DIR = sfml
+SFML_INCLUDE = include
 
-./obj/src/libninja/switcher.o: src/libninja/switcher.cpp
-	$(CXX) $(CFLAG) $(CPPFLAGS)  -o obj/src/libninja/switcher.o -c -I src/ src/libninja/switcher.cpp
+APP_PATH = $(BIN_DIR)/$(APP_NAME)
+LIB_PATH = $(OBJ_DIR)/$(SRC_DIR)/$(LIB_NAME)/$(LIB_NAME).a
 
-./obj/src/libninja/exercise.o: src/libninja/exercise.cpp
-		$(CXX) $(CFLAG) $(CPPFLAGS)  -o obj/src/libninja/exercise.o -c -I src/ src/libninja/exercise.cpp $(LDLIBS)
+SRC_EXT = cpp
+HPP_EXT = hpp
 
--include obj/src/libninja/readingfile.d obj/src/libninja/switcher.d obj/src/libninja/exercise.d obj/src/ninja/main.d
+APP_SOURCES = $(shell find $(SRC_DIR)/$(APP_NAME) -name '*.$(SRC_EXT)')
+APP_OBJECTS = $(APP_SOURCES:$(SRC_DIR)/%.$(SRC_EXT)=$(OBJ_DIR)/$(SRC_DIR)/%.o)
+
+LIB_SOURCES = $(shell find $(SRC_DIR)/$(LIB_NAME) -name '*.$(SRC_EXT)')
+LIB_OBJECTS = $(LIB_SOURCES:$(SRC_DIR)/%.$(SRC_EXT)=$(OBJ_DIR)/$(SRC_DIR)/%.o)
+
+
+DEPS = $(APP_OBJECTS:.o=.d) $(LIB_OBJECTS:.o=.d)
+DEPS_TEST = $(LIB_SFML_OBJECTS:.o=.d)
+
+.PHONY: all
+all: $(APP_PATH)
+
+-include $(DEPS)
+
+
+$(APP_PATH): $(APP_OBJECTS) $(LIB_PATH)
+	$(CC) $(CFLAGS) $(CPPFLAGS) $^  -o $@ $(LIBS)
+
+$(LIB_PATH): $(LIB_OBJECTS)
+	ar rcs $@ $^
+
+$(OBJ_DIR)/%.o: %.$(SRC_EXT)
+	$(CC) -c $(CFLAGS) $(CPPFLAGS) $< -o $@
+
+
 
 .PHONY: clean
 clean:
-	rm ./bin/ninja ./obj/src/libninja/*.o ./obj/src/ninja/*.o
-	rm ./obj/src/libninja/*.d ./obj/src/ninja/*.d ./obj/src/libninja/libninja.a
+	$(RM) $(APP_PATH) $(LIB_PATH) $(TEST_PATH)
+	find $(OBJ_DIR) -name '*.o' -exec $(RM) '{}' \;
+	find $(OBJ_DIR) -name '*.d' -exec $(RM) '{}' \;
