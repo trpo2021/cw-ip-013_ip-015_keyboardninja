@@ -1,6 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <libninja/exercise.hpp>
-#include <libninja/readingfile.hpp>
+#include <libninja/randomtext.hpp>
 #include <libninja/switcher.hpp>
 #include <sstream>
 
@@ -15,15 +15,14 @@ int main() {
   bool naj = false;
   ///////
   int count;
-  long unsigned int current_letter = 0;
-  int current_string = 0;
-  int strings_to_print = 0;
-  string *lines = nullptr;
-  count = GetStringsFromFileS("texts/eng.txt", &lines);
-  if (count < 0) {
-    std::cout << "Error" << std::endl;
-    return 1;
-  }
+  long unsigned int current_letter;
+  int current_string;
+  int strings_to_print;
+  string *lines = NULL;
+  int mistakes;
+  int queue;
+  std::string mistakes_print;
+  std::string mistake_message;
   sf::RenderWindow window(sf::VideoMode(1050, 660), "SFML works!");
   //////////////
   Texture menuBackground1;
@@ -37,9 +36,7 @@ int main() {
   }
   bool print_correct_letter = false;
   sf::Text text;
-  std::string utf8 = lines[0];
   text.setFont(font);
-  text.setString(sf::String::fromUtf8(utf8.begin(), utf8.end()));
   text.setCharacterSize(24);
   text.setFillColor(sf::Color::Green);
   text.setStyle(sf::Text::Bold);
@@ -51,11 +48,21 @@ int main() {
   RightLetter.setFillColor(sf::Color::Black);
   RightLetter.setStyle(sf::Text::Bold);
   RightLetter.setPosition(200, 500);
+  sf::Text Mistakes;
+  Mistakes.setFont(font);
+  Mistakes.setCharacterSize(24);
+  Mistakes.setFillColor(sf::Color::Red);
+  Mistakes.setStyle(sf::Text::Bold);
+  Mistakes.setPosition(10, 10);
   while (ismenu) {
     sf::Event event;
     print_correct_letter = false;
     utf88.clear();
     current_letter = 0;
+    mistakes = 0;
+    current_string = 0;
+    queue = 5;
+    count = GetRandomText(&lines);
     while (menuNum == 1) {
       while (window.pollEvent(event)) {
         if (event.type == Event::Closed) {
@@ -223,18 +230,22 @@ int main() {
           ismenu = false;
         }
         Exercise(event, &print_correct_letter, &current_letter, lines, utf88,
-                 &current_string);
+                 &current_string, &mistakes, &queue, count);
       }
+      mistakes_print = "Mistakes=" + std::to_string(mistakes);
+      Mistakes.setString(mistakes_print);
       RightLetter.setString(sf::String::fromUtf8(utf88.begin(), utf88.end()));
       window.draw(menuBg1);
       if (print_correct_letter == true)
         window.draw(RightLetter);
-      for (strings_to_print = 0; strings_to_print < count; strings_to_print++) {
+      for (strings_to_print = 0; strings_to_print < queue; strings_to_print++) {
         text.setString(String::fromUtf8(lines[strings_to_print].begin(),
                                         lines[strings_to_print].end()));
-        text.setPosition(30, (strings_to_print * 25) - (current_string * 25));
+        text.setPosition(
+            30, ((strings_to_print * 25) - (current_string * 25) + 50));
         text.setFillColor(Color::Black);
         window.draw(text);
+        window.draw(Mistakes);
       }
       window.display();
       if (Keyboard::isKeyPressed(Keyboard::Escape)) {
