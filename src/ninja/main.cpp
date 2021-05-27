@@ -1,6 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <libninja/exercise.hpp>
-#include <libninja/readingfile.hpp>
+#include <libninja/randomtext.hpp>
 #include <libninja/switcher.hpp>
 #include <sstream>
 
@@ -9,10 +9,11 @@ using namespace sf;
 void gameloop(int lvl, sf::Event &event, bool print_correct_letter,
               long unsigned int current_letter, std::string lines[],
               std::string &utf88, int current_string);
- 
+
 int main() {
-  setlocale(LC_ALL, "Russian");    
-  Clock clock;int elaps = 0;
+  setlocale(LC_ALL, "Russian");
+  Clock clock;
+  int elaps = 0;
   ///////
   int position[12];
   int menuNum = 1;
@@ -20,15 +21,14 @@ int main() {
   bool naj = false;
   ///////
   int count;
-  long unsigned int current_letter = 0;
-  int current_string = 0;
-  int strings_to_print = 0;
-  string *lines = nullptr;
-  count = GetStringsFromFileS("texts/eng.txt", &lines);
-  if (count < 0) {
-    std::cout << "Error" << std::endl;
-    return 1;
-  }
+  long unsigned int current_letter;
+  int current_string;
+  int strings_to_print;
+  string *lines = NULL;
+  int mistakes;
+  int queue;
+  std::string mistakes_print;
+  std::string mistake_message;
   sf::RenderWindow window(sf::VideoMode(1050, 660), "SFML works!");
   //////////////
   Texture menuBackground1;
@@ -42,9 +42,7 @@ int main() {
   }
   bool print_correct_letter = false;
   sf::Text text;
-  std::string utf8 = lines[0];
   text.setFont(font);
-  text.setString(sf::String::fromUtf8(utf8.begin(), utf8.end()));
   text.setCharacterSize(24);
   text.setFillColor(sf::Color::Green);
   text.setStyle(sf::Text::Bold);
@@ -64,11 +62,21 @@ int main() {
   timer.setFillColor(sf::Color::Black);
   timer.setStyle(sf::Text::Bold);
   timer.setPosition(10, 600);
+  sf::Text Mistakes;
+  Mistakes.setFont(font);
+  Mistakes.setCharacterSize(24);
+  Mistakes.setFillColor(sf::Color::Red);
+  Mistakes.setStyle(sf::Text::Bold);
+  Mistakes.setPosition(10, 10);
   while (ismenu) {
     sf::Event event;
     print_correct_letter = false;
     utf88.clear();
     current_letter = 0;
+    mistakes = 0;
+    current_string = 0;
+    queue = 5;
+    count = GetRandomText(&lines);
     while (menuNum == 1) {
       while (window.pollEvent(event)) {
         if (event.type == Event::Closed) {
@@ -148,10 +156,10 @@ int main() {
           if ((event.type == sf::Event::MouseButtonReleased) && (naj) &&
               (event.mouseButton.button == Mouse::Left)) {
             menuNum = 4;
-                        //clock
-         
-        elaps = clock.restart().asSeconds();
-        
+            // clock
+
+            elaps = clock.restart().asSeconds();
+
             //
             window.clear();
             menuBackground1.loadFromFile("images/fon3.jpg");
@@ -160,7 +168,7 @@ int main() {
             switcher(menuNum, position, 12);
             if (print_correct_letter == true)
               window.draw(RightLetter);
-            window.draw(text); 
+            window.draw(text);
             window.display();
 
             naj = false;
@@ -234,13 +242,13 @@ int main() {
       }
     }
     while (menuNum == 4) {
-    elaps = (180 - clock.getElapsedTime().asSeconds()) / 60;
-    time = "Времени осталось: ";
-    time += std::to_string(elaps);
-    time += ":";
-    elaps = (int)(180 - clock.getElapsedTime().asSeconds()) % (int)60;
-    time += std::to_string(elaps);
-    timer.setString(sf::String::fromUtf8(time.begin(), time.end()));
+      elaps = (180 - clock.getElapsedTime().asSeconds()) / 60;
+      time = "Времени осталось: ";
+      time += std::to_string(elaps);
+      time += ":";
+      elaps = (int)(180 - clock.getElapsedTime().asSeconds()) % (int)60;
+      time += std::to_string(elaps);
+      timer.setString(sf::String::fromUtf8(time.begin(), time.end()));
       while (window.pollEvent(event)) {
         if (event.type == Event::Closed) {
           window.close();
@@ -248,22 +256,27 @@ int main() {
           ismenu = false;
         }
         Exercise(event, &print_correct_letter, &current_letter, lines, utf88,
-                 &current_string);
+                 &current_string, &mistakes, &queue, count);
       }
+      mistakes_print = "Mistakes=" + std::to_string(mistakes);
+      Mistakes.setString(mistakes_print);
       RightLetter.setString(sf::String::fromUtf8(utf88.begin(), utf88.end()));
       window.draw(menuBg1);
       if (print_correct_letter == true)
         window.draw(RightLetter);
-      for (strings_to_print = 0; strings_to_print < count; strings_to_print++) {
+      for (strings_to_print = 0; strings_to_print < queue; strings_to_print++) {
         text.setString(String::fromUtf8(lines[strings_to_print].begin(),
                                         lines[strings_to_print].end()));
-        text.setPosition(30, (strings_to_print * 25) - (current_string * 25));
+        text.setPosition(
+            30, ((strings_to_print * 25) - (current_string * 25) + 50));
         text.setFillColor(Color::Black);
-        window.draw(text); window.draw(timer);
+
+        window.draw(timer);
+        window.draw(Mistakes);
+        window.draw(text);
       }
-      window.display(); 
-      if (Keyboard::isKeyPressed(Keyboard::Escape))
-      {
+      window.display();
+      if (Keyboard::isKeyPressed(Keyboard::Escape)) {
         menuNum = 2;
         switcher(menuNum, position, 12);
         menuBackground1.loadFromFile("images/fon1.jpg");
@@ -275,48 +288,46 @@ int main() {
   return 0;
 }
 
-//game//
+// game//
 
 void gameloop(int lvl, sf::Event &event, bool print_correct_letter,
               long unsigned int current_letter, std::string lines[],
-              std::string &utf88, int current_string) 
-{/*
-	int starttime, bonusseries; 
-	float penalty, bonus;*/
-	
-	switch(lvl)
-	{
-		case 0:
-			/*starttime = 180;
-			penalty = 1;
-			bonusseries = 20;
-			bonus = 1.5;*/
-			break;
-		case 1:
-			/*starttime = 180;
-			penalty = 2;
-			bonusseries = 30;
-			bonus = 1;*/
-			break;
-		case 2:
-			/*starttime = 120;
-			penalty = 3.5;
-			bonusseries = 40;
-			bonus = 1;*/
-			break;
-	}
-	bool gameover = false;
-	Clock clock;
-	double elaps = clock.restart().asSeconds();
-	while(!gameover)  
-	{
-		Exercise(event, &print_correct_letter, &current_letter, lines, utf88, &current_string);
+              std::string &utf88,
+              int current_string) { /*
+                                           int starttime, bonusseries;
+                                           float penalty, bonus;*/
 
-		elaps = clock.getElapsedTime().asSeconds();
-		std::cout << elaps << "\n";
-		if (Keyboard::isKeyPressed(Keyboard::Escape))
-      {
-      	return;
-      }
-	}
+  switch (lvl) {
+  case 0:
+    /*starttime = 180;
+    penalty = 1;
+    bonusseries = 20;
+    bonus = 1.5;*/
+    break;
+  case 1:
+    /*starttime = 180;
+    penalty = 2;
+    bonusseries = 30;
+    bonus = 1;*/
+    break;
+  case 2:
+    /*starttime = 120;
+    penalty = 3.5;
+    bonusseries = 40;
+    bonus = 1;*/
+    break;
+  }
+  bool gameover = false;
+  Clock clock;
+  double elaps = clock.restart().asSeconds();
+  while (!gameover) {
+    Exercise(event, &print_correct_letter, &current_letter, lines, utf88,
+             &current_string);
+
+    elaps = clock.getElapsedTime().asSeconds();
+    std::cout << elaps << "\n";
+    if (Keyboard::isKeyPressed(Keyboard::Escape)) {
+      return;
+    }
+  }
 }

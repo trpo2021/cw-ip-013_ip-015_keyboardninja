@@ -1,8 +1,17 @@
 #include <libninja/exercise.hpp>
 
+bool Keyhalding(sf::Event &event, int current_string,
+                long unsigned int current_letter, std::string lines[]) {
+  if ((char)event.key.code == lines[current_string][current_letter]) {
+    return true;
+  }
+  return false;
+}
+
 void Exercise(sf::Event &event, bool *print_correct_letter,
               long unsigned int *current_letter, std::string lines[],
-              std::string &utf88, int *current_string) {
+              std::string &utf88, int *current_string, int *mistakes,
+              int *queue, int count) {
   if (event.type == sf::Event::TextEntered) {
     *print_correct_letter = true;
     std::cout << "Key Pressed " << event.key.code << "\n";
@@ -11,11 +20,16 @@ void Exercise(sf::Event &event, bool *print_correct_letter,
       lines[*current_string].clear();
       *current_letter = 0;
       (*current_string)++;
+      if (*queue < count) {
+        (*queue)++;
+        (*mistakes)--;
+      }
     }
-    std::cout << 1;
-    if ((char)event.key.code == lines[*current_string][*current_letter]) {
+    if (Keyhalding(event, *current_string, *current_letter, lines)) {
       utf88 = utf88 + (char)(event.key.code);
       (*current_letter)++;
+    } else {
+      (*mistakes)++;
     }
   }
 }
