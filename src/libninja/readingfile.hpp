@@ -6,4 +6,4 @@
 using namespace std;
 
 int CountLinesInFile(string filename);
-int GetStringsFromFileS(string filename, string **_lines);
+int GetStringsFromFileS(string filename, string** _lines);

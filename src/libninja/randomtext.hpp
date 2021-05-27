@@ -5,4 +5,4 @@
 #include <string>
 
 int GetRandomNumber(int min, int max);
-int GetRandomText(std::string **_lines);
+int GetRandomText(std::string** _lines);

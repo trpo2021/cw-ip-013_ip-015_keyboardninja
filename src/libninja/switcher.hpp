@@ -3,4 +3,4 @@
 
 using namespace std;
 
-void switcher(int menuNum, int *A, int N);
+void switcher(int menuNum, int* A, int N);
