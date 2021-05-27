@@ -292,10 +292,10 @@ int main() {
 
 void gameloop(int lvl, sf::Event &event, bool print_correct_letter,
               long unsigned int current_letter, std::string lines[],
-              std::string &utf88,
-              int current_string) { /*
-                                           int starttime, bonusseries;
-                                           float penalty, bonus;*/
+              std::string &utf88, int current_string, int mistakes, int queue,
+              int count) { /*
+                               int starttime, bonusseries;
+                               float penalty, bonus;*/
 
   switch (lvl) {
   case 0:
@@ -322,7 +322,7 @@ void gameloop(int lvl, sf::Event &event, bool print_correct_letter,
   double elaps = clock.restart().asSeconds();
   while (!gameover) {
     Exercise(event, &print_correct_letter, &current_letter, lines, utf88,
-             &current_string);
+             &current_string, &mistakes, &queue, count);
 
     elaps = clock.getElapsedTime().asSeconds();
     std::cout << elaps << "\n";
