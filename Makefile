@@ -2,7 +2,7 @@ APP_NAME = ninja
 LIB_NAME = libninja
 TEST_NAME = test-app
 
-CFLAGS = -Wall -Wextra -Wpedantic -Werror
+CFLAGS = -Wall -Werror
 CPPFLAGS = -MMD -I sfml/include -I src
 CPPFLAGS_TEST = -MP -MMD -I src -I thirdparty
 
@@ -48,11 +48,11 @@ all: $(APP_PATH)
 $(APP_PATH): $(APP_OBJECTS) $(LIB_PATH)
 	$(CC) $(CFLAGS) $(CPPFLAGS) $^  -o $@ $(LIBS)
 
-$(OBJ_DIR)/%.o: %.$(SRC_EXT)
-	$(CC) -c $(CFLAGS) $(CPPFLAGS) $< -o $@
-
 $(LIB_PATH): $(LIB_OBJECTS)
 	ar rcs $@ $^
+
+$(OBJ_DIR)/%.o: %.$(SRC_EXT)
+	$(CC) -c $(CFLAGS) $(CPPFLAGS) $< -o $@
 
 .PHONY: test
 test: $(TEST_PATH)
