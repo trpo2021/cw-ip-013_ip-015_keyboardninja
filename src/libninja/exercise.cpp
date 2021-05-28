@@ -3,10 +3,11 @@
 bool Keyhalding(
         sf::Event& event,
         int current_string,
+        int keycode,
         long unsigned int current_letter,
         std::string lines[])
 {
-    if ((char)event.key.code == lines[current_string][current_letter]) {
+    if ((char)keycode == lines[current_string][current_letter]) {
         return true;
     }
     return false;
@@ -23,9 +24,11 @@ void Exercise(
         int* queue,
         int count)
 {
+    int keycode;
     if (event.type == sf::Event::TextEntered) {
         *print_correct_letter = true;
         std::cout << "Key Pressed " << event.key.code << "\n";
+        keycode = event.key.code;
         if (*current_letter == lines[*current_string].size() - 1) {
             utf88.clear();
             lines[*current_string].clear();
@@ -36,7 +39,8 @@ void Exercise(
                 (*mistakes)--;
             }
         }
-        if (Keyhalding(event, *current_string, *current_letter, lines)) {
+        if (Keyhalding(
+                    event, *current_string, keycode, *current_letter, lines)) {
             utf88 = utf88 + (char)(event.key.code);
             (*current_letter)++;
         } else {
