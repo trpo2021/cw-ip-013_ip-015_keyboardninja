@@ -37,7 +37,9 @@ int main()
     int queue;
     std::string mistakes_print;
     std::string mistake_message;
-    sf::RenderWindow window(sf::VideoMode(1050, 660), "SFML works!");
+    int height = 660;
+	int width = 1050; 
+    sf::RenderWindow window(sf::VideoMode(width, height), "ninja");
     //////////////
     Texture menuBackground1;
     menuBackground1.loadFromFile("images/fon.jpg");
@@ -100,10 +102,15 @@ int main()
                     menuNum = 0;
                     ismenu = false;
                 }
+                if (event.type == Event::Resized) {
+                	height = event.size.height;
+    				width = event.size.width;
+    				switcher(menuNum, position, 12, height, width);
+                }
             }
             window.draw(menuBg1);
             window.display();
-            switcher(menuNum, position, 12);
+            switcher(menuNum, position, 12, height, width);
             if (IntRect(position[0], position[1], position[2], position[3])
                         .contains(Mouse::getPosition(window))) {
                 if ((Mouse::isButtonPressed(Mouse::Left)) && (!naj)) {
@@ -113,7 +120,7 @@ int main()
                     if ((event.type == sf::Event::MouseButtonReleased) && (naj)
                         && (event.mouseButton.button == Mouse::Left)) {
                         menuNum = 2;
-                        switcher(menuNum, position, 12);
+                        switcher(menuNum, position, 12, height, width);
                         menuBackground1.loadFromFile("images/fon1.jpg");
                         Sprite menuBg1(menuBackground1);
                         menuBg1.setPosition(0, 0);
@@ -130,7 +137,7 @@ int main()
                     if ((event.type == sf::Event::MouseButtonReleased) && (naj)
                         && (event.mouseButton.button == Mouse::Left)) {
                         menuNum = 3;
-                        switcher(menuNum, position, 12);
+                        switcher(menuNum, position, 12, height, width);
                         menuBackground1.loadFromFile("images/fon2.jpg");
                         Sprite menuBg1(menuBackground1);
                         menuBg1.setPosition(0, 0);
@@ -159,6 +166,11 @@ int main()
                     menuNum = 0;
                     ismenu = false;
                 }
+                if (event.type == Event::Resized) {
+                	height = event.size.height;
+    				width = event.size.width;
+    				switcher(menuNum, position, 12, height, width);
+                }
             }
             window.draw(menuBg1);
             window.display();
@@ -181,7 +193,7 @@ int main()
                         menuBackground1.loadFromFile("images/fon3.jpg");
                         Sprite menuBg1(menuBackground1);
                         menuBg1.setPosition(0, 0);
-                        switcher(menuNum, position, 12);
+                        switcher(menuNum, position, 12, height, width);
                         if (print_correct_letter == true)
                             window.draw(RightLetter);
                         window.draw(text);
@@ -203,7 +215,7 @@ int main()
                         menuBackground1.loadFromFile("images/fon3.jpg");
                         Sprite menuBg1(menuBackground1);
                         menuBg1.setPosition(0, 0);
-                        switcher(menuNum, position, 12);
+                        switcher(menuNum, position, 12, height, width);
                         window.clear();
                         if (print_correct_letter == true)
                             window.draw(RightLetter);
@@ -225,7 +237,7 @@ int main()
                         menuBackground1.loadFromFile("images/fon3.jpg");
                         Sprite menuBg1(menuBackground1);
                         menuBg1.setPosition(0, 0);
-                        switcher(menuNum, position, 12);
+                        switcher(menuNum, position, 12, height, width);
                         naj = false;
                     }
                 }
@@ -233,7 +245,7 @@ int main()
 
             if (Keyboard::isKeyPressed(Keyboard::Escape)) {
                 menuNum = 1;
-                switcher(menuNum, position, 12);
+                switcher(menuNum, position, 12, height, width);
                 menuBackground1.loadFromFile("images/fon.jpg");
                 Sprite menuBg1(menuBackground1);
                 menuBg1.setPosition(0, 0);
@@ -251,7 +263,7 @@ int main()
             window.display();
             if (Keyboard::isKeyPressed(Keyboard::Escape)) {
                 menuNum = 1;
-                switcher(menuNum, position, 12);
+                switcher(menuNum, position, 12, height, width);
                 menuBackground1.loadFromFile("images/fon.jpg");
                 Sprite menuBg1(menuBackground1);
                 menuBg1.setPosition(0, 0);
@@ -331,7 +343,7 @@ int main()
             window.display();
             if (Keyboard::isKeyPressed(Keyboard::Escape)) {
                 menuNum = 2;
-                switcher(menuNum, position, 12);
+                switcher(menuNum, position, 12, height, width);
                 menuBackground1.loadFromFile("images/fon1.jpg");
                 Sprite menuBg1(menuBackground1);
                 menuBg1.setPosition(0, 0);
