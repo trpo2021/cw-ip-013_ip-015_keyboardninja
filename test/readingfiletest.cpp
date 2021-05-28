@@ -1,5 +1,4 @@
 #include <ctest.h>
-#include <iostream>
 #include <libninja/readingfile.hpp>
 CTEST(count, lines)
 {
