@@ -166,6 +166,11 @@ int main()
                     menuNum = 0;
                     ismenu = false;
                 }
+                if (event.type == Event::Resized) {
+                	height = event.size.height;
+    				width = event.size.width;
+    				switcher(menuNum, position, 12, height, width);
+                }
             }
             window.draw(menuBg1);
             window.display();
