@@ -10,15 +10,15 @@ void switcher(int menuNum, int* A, int N, int height, int width)
         A[2] = 560 * (width/(float)1050);
         A[3] = 80 * (height/(float)660);
         // second button
-        A[4] = 20;
-        A[5] = 182;
-        A[6] = 296;
-        A[7] = 80;
+        A[4] = 20 * (width/(float)1050);
+        A[5] = 182 * (height/(float)660);
+        A[6] = 296 * (width/(float)1050);
+        A[7] = 80 * (height/(float)660);
         // third button
-        A[8] = 20;
-        A[9] = 310;
-        A[10] = 260;
-        A[11] = 90;
+        A[8] = 20 * (width/(float)1050);
+        A[9] = 310 * (height/(float)660);
+        A[10] = 260 * (width/(float)1050);
+        A[11] = 90 * (height/(float)660);
         break;
     case 2:
         // first button
