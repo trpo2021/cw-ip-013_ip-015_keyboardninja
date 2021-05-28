@@ -21,4 +21,5 @@ void Exercise(
         int* current_string,
         int* mistakes,
         int* queue,
-        int count);
+        int count,
+        int* intseries);
