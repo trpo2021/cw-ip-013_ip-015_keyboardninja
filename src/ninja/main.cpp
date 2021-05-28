@@ -54,18 +54,18 @@ int main()
     text.setCharacterSize(24);
     text.setFillColor(sf::Color::Green);
     text.setStyle(sf::Text::Bold);
-    text.setPosition(100, 200);
+    text.setPosition(30, 200);
     sf::Text RightLetter;
     std::string utf88;
     RightLetter.setFont(font);
     RightLetter.setCharacterSize(24);
     RightLetter.setFillColor(sf::Color::Black);
     RightLetter.setStyle(sf::Text::Bold);
-    RightLetter.setPosition(200, 500);
+    RightLetter.setPosition(30, 300);
     sf::Text timer;
-    std::string time = "Времени осталось: ";
+    std::string time = "Time left: ";
     timer.setFont(font);
-    timer.setString(sf::String::fromUtf8(time.begin(), time.end()));
+    timer.setString(time);
     timer.setCharacterSize(24);
     timer.setFillColor(sf::Color::Black);
     timer.setStyle(sf::Text::Bold);
@@ -77,9 +77,9 @@ int main()
     Mistakes.setStyle(sf::Text::Bold);
     Mistakes.setPosition(10, 10);
     sf::Text Series;
-    std::string series = "Текущая серия: ";
+    std::string series = "Current series: ";
     Series.setFont(font);
-    Series.setString(sf::String::fromUtf8(series.begin(), series.end()));
+    Series.setString(series);
     Series.setCharacterSize(24);
     Series.setFillColor(sf::Color::Black);
     Series.setStyle(sf::Text::Bold);
@@ -276,12 +276,12 @@ int main()
         	}
         	//
             elaps = (starttime - mistakes*penalty - clock.getElapsedTime().asSeconds() + countseries*bonus) / 60;
-            time = "Времени осталось: ";
+            time = "Time left: ";
             time += std::to_string(elaps);
             time += ":";
             elaps = (int)(starttime - mistakes*penalty - clock.getElapsedTime().asSeconds() + countseries*bonus) % (int)60;
             time += std::to_string(elaps);
-            timer.setString(sf::String::fromUtf8(time.begin(), time.end()));
+            timer.setString(time);
             while (window.pollEvent(event)) {
                 if (event.type == Event::Closed) {
                     window.close();
@@ -300,16 +300,16 @@ int main()
                         count,
                         &intseries);
             }
-            mistakes_print = "Mistakes=" + std::to_string(mistakes);
+            mistakes_print = "Mistakes: " + std::to_string(mistakes);
             Mistakes.setString(mistakes_print);
             RightLetter.setString(
                     sf::String::fromUtf8(utf88.begin(), utf88.end()));
             window.draw(menuBg1);
             if (print_correct_letter == true)
                 window.draw(RightLetter);
-            series = "Текущая серия: ";
+            series = "Current series: ";
             series += std::to_string(intseries);
-            Series.setString(sf::String::fromUtf8(series.begin(), series.end()));
+            Series.setString(series);
             for (strings_to_print = 0; strings_to_print < queue;
                  strings_to_print++) {
                 text.setString(String::fromUtf8(
