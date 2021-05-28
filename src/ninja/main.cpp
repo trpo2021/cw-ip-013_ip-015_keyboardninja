@@ -258,28 +258,31 @@ int main()
             }
         }
         while (menuNum == 4) {
-        	//
-        	int bonusseries, starttime;
-      		float penalty, bonus;
-      		starttime = 180;
-        	penalty = 1;
-        	bonusseries = 20;
-        	bonus = 1.5;
-        	int check;
-        	if(check < intseries/bonusseries)
-        	{
-	        	countseries += 1;
-	        	check = intseries/bonusseries;
-        	} else if(intseries/bonusseries == 0)
-        	{
-        		check = 0;
-        	}
-        	//
-            elaps = (starttime - mistakes*penalty - clock.getElapsedTime().asSeconds() + countseries*bonus) / 60;
+            //
+            int bonusseries, starttime;
+            float penalty, bonus;
+            starttime = 180;
+            penalty = 1;
+            bonusseries = 20;
+            bonus = 1.5;
+            int check;
+            if (check < intseries / bonusseries) {
+                countseries += 1;
+                check = intseries / bonusseries;
+            } else if (intseries / bonusseries == 0) {
+                check = 0;
+            }
+            //
+            elaps = (starttime - mistakes * penalty
+                     - clock.getElapsedTime().asSeconds() + countseries * bonus)
+                    / 60;
             time = "Time left: ";
             time += std::to_string(elaps);
             time += ":";
-            elaps = (int)(starttime - mistakes*penalty - clock.getElapsedTime().asSeconds() + countseries*bonus) % (int)60;
+            elaps = (int)(starttime - mistakes * penalty
+                          - clock.getElapsedTime().asSeconds()
+                          + countseries * bonus)
+                    % (int)60;
             time += std::to_string(elaps);
             timer.setString(time);
             while (window.pollEvent(event)) {
@@ -320,7 +323,7 @@ int main()
                         ((strings_to_print * 25) - (current_string * 25) + 50));
                 text.setFillColor(Color::Black);
 
-				window.draw(Series);
+                window.draw(Series);
                 window.draw(timer);
                 window.draw(Mistakes);
                 window.draw(text);
