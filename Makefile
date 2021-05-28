@@ -4,7 +4,7 @@ TEST_NAME = test-app
 
 CFLAGS = -Wall -Werror
 CPPFLAGS = -MMD -I sfml/include -I src
-CPPFLAGS_TEST = -MP -MMD -I src -I thirdparty
+CPPFLAGS_TEST = -MP -MMD -I sfml/include -I src -I thirdparty
 
 PATH_SFML =  sfml/lib
 LIBS = -L $(PATH_SFML) -Wl,-rpath=sfml/lib  -lsfml-graphics -lsfml-window -lsfml-system
@@ -59,7 +59,7 @@ test: $(TEST_PATH)
 -include $(TEST_DEPENDENCIES)
 
 $(TEST_PATH): $(TEST_OBJ) $(LIB_PATH)
-	$(CC) $(CFLAGS) $(CPPFLAGS_TEST) $^  -o $@
+	$(CC) $(CFLAGS) $(CPPFLAGS_TEST) $^  -o $@ $(LIBS)
 
 $(OBJ_DIR)/$(TEST)%.o: $(TEST)/%.cpp
 	$(CC) -c $(CFLAGS) $(CPPFLAGS_TEST) $< -o $@
