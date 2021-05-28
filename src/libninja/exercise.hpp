@@ -6,11 +6,28 @@
 using namespace sf;
 
 bool Keyhalding(
-        sf::Event& event,
         int current_string,
         int keycode,
         long unsigned int current_letter,
         std::string lines[]);
+
+void InvoiceProcessing(
+        sf::Event& event,
+        long unsigned int* current_letter,
+        std::string lines[],
+        std::string& utf88,
+        int current_string,
+        int* intseries,
+        int* mistakes,
+        int keycode);
+
+void NextString(
+        long unsigned int* current_letter,
+        std::string lines[],
+        std::string& utf88,
+        int* current_string,
+        int* queue,
+        int count);
 
 void Exercise(
         sf::Event& event,
