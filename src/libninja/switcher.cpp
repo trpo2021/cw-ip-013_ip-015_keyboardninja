@@ -1,14 +1,14 @@
 #include <libninja/switcher.hpp>
 
-void switcher(int menuNum, int* A, int N)
+void switcher(int menuNum, int* A, int N, int height, int width)
 {
     switch (menuNum) {
     case 1:
         // first button
-        A[0] = 20;
-        A[1] = 55;
-        A[2] = 560;
-        A[3] = 80;
+        A[0] = 20 * (width/(float)1050);
+        A[1] = 55 * (height/(float)660);
+        A[2] = 560 * (width/(float)1050);
+        A[3] = 80 * (height/(float)660);
         // second button
         A[4] = 20;
         A[5] = 182;
