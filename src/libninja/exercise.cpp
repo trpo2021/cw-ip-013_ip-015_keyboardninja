@@ -22,7 +22,8 @@ void Exercise(
         int* current_string,
         int* mistakes,
         int* queue,
-        int count)
+        int count,
+        int* intseries)
 {
     int keycode;
     if (event.type == sf::Event::TextEntered) {
@@ -43,8 +44,10 @@ void Exercise(
                     event, *current_string, keycode, *current_letter, lines)) {
             utf88 = utf88 + (char)(event.key.code);
             (*current_letter)++;
+            (*intseries)++;
         } else {
             (*mistakes)++;
+            (*intseries) = 0;
         }
     }
 }

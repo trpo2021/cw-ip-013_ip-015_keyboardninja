@@ -20,6 +20,7 @@ int main()
     setlocale(LC_ALL, "Russian");
     Clock clock;
     int elaps = 0;
+    int intseries = 0;
     ///////
     int position[12];
     int menuNum = 1;
@@ -74,6 +75,14 @@ int main()
     Mistakes.setFillColor(sf::Color::Red);
     Mistakes.setStyle(sf::Text::Bold);
     Mistakes.setPosition(10, 10);
+    sf::Text Series;
+    std::string series = "Текущая серия: ";
+    Series.setFont(font);
+    Series.setString(sf::String::fromUtf8(series.begin(), series.end()));
+    Series.setCharacterSize(24);
+    Series.setFillColor(sf::Color::Black);
+    Series.setStyle(sf::Text::Bold);
+    Series.setPosition(180, 10);
     while (ismenu) {
         sf::Event event;
         print_correct_letter = false;
@@ -162,9 +171,9 @@ int main()
                         && (event.mouseButton.button == Mouse::Left)) {
                         menuNum = 4;
                         // clock
-
                         elaps = clock.restart().asSeconds();
-
+                        // series reset
+                        intseries = 0;
                         //
                         window.clear();
                         menuBackground1.loadFromFile("images/fon3.jpg");
@@ -248,12 +257,13 @@ int main()
         }
         while (menuNum == 4) {
         	//
-        	int starttime;//, bonusseries;
+        	int starttime, bonusseries;
       		float penalty;//, bonus;
       		starttime = 180;
         	penalty = 1;
-        	//bonusseries = 20;
+        	bonusseries += 20;
         	//bonus = 1.5;
+        	//intseries = 0;
         	//
             elaps = (starttime - mistakes*penalty - clock.getElapsedTime().asSeconds()) / 60;
             time = "Времени осталось: ";
@@ -277,7 +287,8 @@ int main()
                         &current_string,
                         &mistakes,
                         &queue,
-                        count);
+                        count,
+                        &intseries);
             }
             mistakes_print = "Mistakes=" + std::to_string(mistakes);
             Mistakes.setString(mistakes_print);
@@ -286,6 +297,9 @@ int main()
             window.draw(menuBg1);
             if (print_correct_letter == true)
                 window.draw(RightLetter);
+            series = "Текущая серия: ";
+            series += std::to_string(intseries);
+            Series.setString(sf::String::fromUtf8(series.begin(), series.end()));
             for (strings_to_print = 0; strings_to_print < queue;
                  strings_to_print++) {
                 text.setString(String::fromUtf8(
@@ -296,6 +310,7 @@ int main()
                         ((strings_to_print * 25) - (current_string * 25) + 50));
                 text.setFillColor(Color::Black);
 
+				window.draw(Series);
                 window.draw(timer);
                 window.draw(Mistakes);
                 window.draw(text);
@@ -325,7 +340,8 @@ void gameloop(
         int current_string,
         int mistakes,
         int queue,
-        int count)
+        int count,
+        int intseries)
 { /*
       int starttime, bonusseries;
       float penalty, bonus;*/
@@ -363,7 +379,8 @@ void gameloop(
                 &current_string,
                 &mistakes,
                 &queue,
-                count);
+                count,
+                &intseries);
 
         elaps = clock.getElapsedTime().asSeconds();
         std::cout << elaps << "\n";
