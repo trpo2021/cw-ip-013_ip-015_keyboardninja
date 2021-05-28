@@ -8,6 +8,7 @@ using namespace sf;
 bool Keyhalding(
         sf::Event& event,
         int current_string,
+        int keycode,
         long unsigned int current_letter,
         std::string lines[]);
 
