@@ -21,6 +21,7 @@ int main()
     Clock clock;
     int elaps = 0;
     int intseries = 0;
+    int countseries = 0;
     ///////
     int position[12];
     int menuNum = 1;
@@ -174,6 +175,7 @@ int main()
                         elaps = clock.restart().asSeconds();
                         // series reset
                         intseries = 0;
+                        countseries = 0;
                         //
                         window.clear();
                         menuBackground1.loadFromFile("images/fon3.jpg");
@@ -257,19 +259,27 @@ int main()
         }
         while (menuNum == 4) {
         	//
-        	int starttime, bonusseries;
-      		float penalty;//, bonus;
+        	int bonusseries, starttime;
+      		float penalty, bonus;
       		starttime = 180;
         	penalty = 1;
-        	bonusseries += 20;
-        	//bonus = 1.5;
-        	//intseries = 0;
+        	bonusseries = 20;
+        	bonus = 1.5;
+        	int check;
+        	if(check < intseries/bonusseries)
+        	{
+	        	countseries += 1;
+	        	check = intseries/bonusseries;
+        	} else if(intseries/bonusseries == 0)
+        	{
+        		check = 0;
+        	}
         	//
-            elaps = (starttime - mistakes*penalty - clock.getElapsedTime().asSeconds()) / 60;
+            elaps = (starttime - mistakes*penalty - clock.getElapsedTime().asSeconds() + countseries*bonus) / 60;
             time = "Времени осталось: ";
             time += std::to_string(elaps);
             time += ":";
-            elaps = (int)(starttime - mistakes*penalty - clock.getElapsedTime().asSeconds()) % (int)60;
+            elaps = (int)(starttime - mistakes*penalty - clock.getElapsedTime().asSeconds() + countseries*bonus) % (int)60;
             time += std::to_string(elaps);
             timer.setString(sf::String::fromUtf8(time.begin(), time.end()));
             while (window.pollEvent(event)) {
