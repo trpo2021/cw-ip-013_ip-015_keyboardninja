@@ -247,11 +247,19 @@ int main()
             }
         }
         while (menuNum == 4) {
-            elaps = (180 - clock.getElapsedTime().asSeconds()) / 60;
+        	//
+        	int starttime;//, bonusseries;
+      		float penalty;//, bonus;
+      		starttime = 180;
+        	penalty = 1;
+        	//bonusseries = 20;
+        	//bonus = 1.5;
+        	//
+            elaps = (starttime - mistakes*penalty - clock.getElapsedTime().asSeconds()) / 60;
             time = "Времени осталось: ";
             time += std::to_string(elaps);
             time += ":";
-            elaps = (int)(180 - clock.getElapsedTime().asSeconds()) % (int)60;
+            elaps = (int)(starttime - mistakes*penalty - clock.getElapsedTime().asSeconds()) % (int)60;
             time += std::to_string(elaps);
             timer.setString(sf::String::fromUtf8(time.begin(), time.end()));
             while (window.pollEvent(event)) {
