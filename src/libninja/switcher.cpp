@@ -40,18 +40,18 @@ void switcher(int menuNum, int* A, int N, int height, int width)
 
     case 5:
         // first button
-        A[0] = 382 * (width / (float)1050);
-        A[1] = 109 * (height / (float)660);
+        A[0] = 365 * (width / (float)1050);
+        A[1] = 139 * (height / (float)660);
         ;
-        A[2] = 257 * (width / (float)1050);
-        A[3] = 87 * (height / (float)660);
+        A[2] = 310 * (width / (float)1050);
+        A[3] = 67 * (height / (float)660);
         ;
         // second button
-        A[4] = 278 * (width / (float)1050);
-        A[5] = 242 * (height / (float)660);
+        A[4] = 144 * (width / (float)1050);
+        A[5] = 309 * (height / (float)660);
         ;
-        A[6] = 435 * (width / (float)1050);
-        A[7] = 85 * (height / (float)660);
+        A[6] = 752 * (width / (float)1050);
+        A[7] = 64 * (height / (float)660);
         ;
         // third button
         A[8] = 0;
