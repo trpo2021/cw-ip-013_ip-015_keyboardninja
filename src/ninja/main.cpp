@@ -342,13 +342,73 @@ int main()
             }
             window.display();
             if (Keyboard::isKeyPressed(Keyboard::Escape)) {
-                menuNum = 2;
+                menuNum = 5;
                 switcher(menuNum, position, 12, height, width);
-                menuBackground1.loadFromFile("images/fon1.jpg");
+                menuBackground1.loadFromFile("images/fon4.jpg");
                 Sprite menuBg1(menuBackground1);
                 menuBg1.setPosition(0, 0);
             }
         }
+        while (menuNum == 5){
+            while (window.pollEvent(event)) {
+                if (event.type == Event::Closed) {
+                    window.close();
+                    menuNum = 0;
+                    ismenu = false;
+                }
+            }
+            window.draw(menuBg1);
+            window.display();
+            if (IntRect(position[0], position[1], position[2], position[3])
+                        .contains(Mouse::getPosition(window))) {
+                if ((Mouse::isButtonPressed(Mouse::Left)) && (!naj)) {
+                    naj = true;
+                }
+                while (window.pollEvent(event)) {
+                    if ((event.type == sf::Event::MouseButtonReleased) && (naj)
+                        && (event.mouseButton.button == Mouse::Left)) {
+                        menuNum = 4;
+                        // clock
+                        
+                        window.clear();
+                        menuBackground1.loadFromFile("images/fon3.jpg");
+                        Sprite menuBg1(menuBackground1);
+                        menuBg1.setPosition(0, 0);
+                        switcher(menuNum, position, 12, height, width);
+                        if (print_correct_letter == true)
+                            window.draw(RightLetter);
+                        window.draw(text);
+                        window.display();
+
+                        naj = false;
+                    }
+                }
+            }
+            if (IntRect(position[4], position[5], position[6], position[7])
+                        .contains(Mouse::getPosition(window))) {
+                if ((Mouse::isButtonPressed(Mouse::Left)) && (!naj)) {
+                    naj = true;
+                }
+                while (window.pollEvent(event)) {
+                    if ((event.type == sf::Event::MouseButtonReleased) && (naj)
+                        && (event.mouseButton.button == Mouse::Left)) {
+                        menuNum = 1;
+                        // clock
+                        elaps = clock.restart().asSeconds();
+                        // series reset
+                        intseries = 0;
+                        countseries = 0;
+                        //
+                        menuBackground1.loadFromFile("images/fon.jpg");
+                        Sprite menuBg1(menuBackground1);
+                        menuBg1.setPosition(0, 0);
+                        switcher(menuNum, position, 12, height, width);
+                        window.clear();
+                        naj = false;
+                    }
+                }
+            }
+          }
     }
     return 0;
 }
