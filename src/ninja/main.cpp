@@ -19,7 +19,8 @@ int main()
 {
     setlocale(LC_ALL, "Russian");
     Clock clock;
-    int elaps = 0;
+    int timepause = 0;
+    int timeremain = 0;
     int intseries = 0;
     int countseries = 0;
     ///////
@@ -184,7 +185,7 @@ int main()
                         && (event.mouseButton.button == Mouse::Left)) {
                         menuNum = 4;
                         // clock
-                        elaps = clock.restart().asSeconds();
+                        clock.restart();
                         // series reset
                         intseries = 0;
                         countseries = 0;
@@ -285,17 +286,13 @@ int main()
                 check = 0;
             }
             //
-            elaps = (starttime - mistakes * penalty
-                     - clock.getElapsedTime().asSeconds() + countseries * bonus)
-                    / 60;
+            timeremain = (starttime - mistakes * penalty
+                     - clock.getElapsedTime().asSeconds() + countseries * bonus - timepause)
+                    ;
             time = "Time left: ";
-            time += std::to_string(elaps);
+            time += std::to_string(timeremain / 60);
             time += ":";
-            elaps = (int)(starttime - mistakes * penalty
-                          - clock.getElapsedTime().asSeconds()
-                          + countseries * bonus)
-                    % (int)60;
-            time += std::to_string(elaps);
+            time += std::to_string(timeremain % (int)60);
             timer.setString(time);
             while (window.pollEvent(event)) {
                 if (event.type == Event::Closed) {
@@ -342,6 +339,7 @@ int main()
             }
             window.display();
             if (Keyboard::isKeyPressed(Keyboard::Escape)) {
+            	timepause = starttime - timeremain;//////////////////////
                 menuNum = 5;
                 switcher(menuNum, position, 12, height, width);
                 menuBackground1.loadFromFile("images/fon4.jpg");
@@ -369,7 +367,7 @@ int main()
                         && (event.mouseButton.button == Mouse::Left)) {
                         menuNum = 4;
                         // clock
-                        
+                        clock.restart();
                         window.clear();
                         menuBackground1.loadFromFile("images/fon3.jpg");
                         Sprite menuBg1(menuBackground1);
@@ -394,7 +392,8 @@ int main()
                         && (event.mouseButton.button == Mouse::Left)) {
                         menuNum = 1;
                         // clock
-                        elaps = clock.restart().asSeconds();
+                        clock.restart();
+                        timepause = 0;
                         // series reset
                         intseries = 0;
                         countseries = 0;
@@ -453,7 +452,7 @@ void gameloop(
     }
     bool gameover = false;
     Clock clock;
-    double elaps = clock.restart().asSeconds();
+    //double elaps = clock.restart();
     while (!gameover) {
         Exercise(
                 event,
@@ -466,9 +465,8 @@ void gameloop(
                 &queue,
                 count,
                 &intseries);
-
-        elaps = clock.getElapsedTime().asSeconds();
-        std::cout << elaps << "\n";
+        //elaps = clock.getElapsedTime().asSeconds();
+        //std::cout << elaps << "\n";
         if (Keyboard::isKeyPressed(Keyboard::Escape)) {
             return;
         }
