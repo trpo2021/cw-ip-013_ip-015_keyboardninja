@@ -94,14 +94,16 @@ int main()
     Series.setStyle(sf::Text::Bold);
     Series.setPosition(180, 10);
     count = GetRandomText(&lines);
+    utf88.clear();
+    print_correct_letter = false;
+
+    current_letter = 0;
+    mistakes = 0;
+    current_string = 0;
+    queue = 5;
     while (ismenu) {
         sf::Event event;
-        print_correct_letter = false;
-        utf88.clear();
-        current_letter = 0;
-        mistakes = 0;
-        current_string = 0;
-        queue = 5;
+        
         
         while (menuNum == 1) {
             while (window.pollEvent(event)) {
@@ -409,6 +411,7 @@ int main()
                         if (print_correct_letter == true)
                             window.draw(RightLetter);
                         window.draw(text);
+                        
                         window.display();
 
                         naj = false;
@@ -438,6 +441,13 @@ int main()
                         window.clear();
                         naj = false;
                         count = GetRandomText(&lines);
+                        utf88.clear();
+                        print_correct_letter = false;
+
+                        current_letter = 0;
+                        mistakes = 0;
+                        current_string = 0;
+                        queue = 5;
                     }
                 }
             }
