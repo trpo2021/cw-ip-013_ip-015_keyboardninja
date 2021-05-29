@@ -6,6 +6,8 @@
 
 using namespace sf;
 
+void level(int lvl, int* starttime, float* penalty, float* bonus, int* bonusseries);
+
 void gameloop(
         int lvl,
         sf::Event& event,
@@ -23,6 +25,11 @@ int main()
     int timeremain = 0;
     int intseries = 0;
     int countseries = 0;
+    int bonusseries = 0;
+    int starttime = 0;
+    float penalty = 0;
+    float bonus = 0;
+    int lvl = 0;
     ///////
     int position[12];
     int menuNum = 1;
@@ -189,7 +196,8 @@ int main()
                         // series reset
                         intseries = 0;
                         countseries = 0;
-                        //
+                        // lvl = easy
+                        lvl = 0;
                         window.clear();
                         menuBackground1.loadFromFile("images/fon3.jpg");
                         Sprite menuBg1(menuBackground1);
@@ -213,15 +221,23 @@ int main()
                     if ((event.type == sf::Event::MouseButtonReleased) && (naj)
                         && (event.mouseButton.button == Mouse::Left)) {
                         menuNum = 4;
+                        // clock
+                        clock.restart();
+                        // series reset
+                        intseries = 0;
+                        countseries = 0;
+                        // lvl = normal
+                        lvl = 1;
+                        window.clear();
                         menuBackground1.loadFromFile("images/fon3.jpg");
                         Sprite menuBg1(menuBackground1);
                         menuBg1.setPosition(0, 0);
                         switcher(menuNum, position, 12, height, width);
-                        window.clear();
                         if (print_correct_letter == true)
                             window.draw(RightLetter);
                         window.draw(text);
                         window.display();
+
                         naj = false;
                     }
                 }
@@ -235,10 +251,23 @@ int main()
                     if ((event.type == sf::Event::MouseButtonReleased) && (naj)
                         && (event.mouseButton.button == Mouse::Left)) {
                         menuNum = 4;
+                        // clock
+                        clock.restart();
+                        // series reset
+                        intseries = 0;
+                        countseries = 0;
+                        // lvl = hard
+                        lvl = 2;
+                        window.clear();
                         menuBackground1.loadFromFile("images/fon3.jpg");
                         Sprite menuBg1(menuBackground1);
                         menuBg1.setPosition(0, 0);
                         switcher(menuNum, position, 12, height, width);
+                        if (print_correct_letter == true)
+                            window.draw(RightLetter);
+                        window.draw(text);
+                        window.display();
+
                         naj = false;
                     }
                 }
@@ -272,12 +301,7 @@ int main()
         }
         while (menuNum == 4) {
             //
-            int bonusseries, starttime;
-            float penalty, bonus;
-            starttime = 180;
-            penalty = 1;
-            bonusseries = 20;
-            bonus = 1.5;
+            level(lvl, &starttime, &penalty, &bonus, &bonusseries);
             int check;
             if (check < intseries / bonusseries) {
                 countseries += 1;
@@ -479,5 +503,29 @@ void gameloop(
         if (Keyboard::isKeyPressed(Keyboard::Escape)) {
             return;
         }
+    }
+}
+
+void level(int lvl, int* starttime, float* penalty, float* bonus, int* bonusseries)
+{
+	switch (lvl) {
+    case 0:
+        (*starttime) = 180;
+        (*penalty) = 1;
+        (*bonusseries) = 20;
+        (*bonus) = 1.5;
+        break;
+    case 1:
+        (*starttime) = 180;
+        (*penalty) = 2;
+        (*bonusseries) = 30;
+        (*bonus) = 1;
+        break;
+    case 2:
+        (*starttime) = 120;
+        (*penalty) = 3.5;
+        (*bonusseries) = 40;
+        (*bonus) = 1;
+        break;
     }
 }
