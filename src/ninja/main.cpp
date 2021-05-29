@@ -93,6 +93,7 @@ int main()
     Series.setFillColor(sf::Color::Black);
     Series.setStyle(sf::Text::Bold);
     Series.setPosition(180, 10);
+    count = GetRandomText(&lines);
     while (ismenu) {
         sf::Event event;
         print_correct_letter = false;
@@ -101,7 +102,7 @@ int main()
         mistakes = 0;
         current_string = 0;
         queue = 5;
-        count = GetRandomText(&lines);
+        
         while (menuNum == 1) {
             while (window.pollEvent(event)) {
                 if (event.type == Event::Closed) {
@@ -436,6 +437,7 @@ int main()
                         switcher(menuNum, position, 12, height, width);
                         window.clear();
                         naj = false;
+                        count = GetRandomText(&lines);
                     }
                 }
             }
