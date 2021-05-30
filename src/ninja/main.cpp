@@ -1,8 +1,8 @@
 #include <SFML/Graphics.hpp>
 #include <libninja/exercise.hpp>
+#include <libninja/level.hpp>
 #include <libninja/randomtext.hpp>
 #include <libninja/switcher.hpp>
-#include <libninja/level.hpp>
 #include <sstream>
 
 using namespace sf;
@@ -45,7 +45,7 @@ int main()
     std::string mistakes_print;
     std::string mistake_message;
     int height = 660;
-	int width = 1050; 
+    int width = 1050;
     sf::RenderWindow window(sf::VideoMode(width, height), "ninja");
     //////////////
     Texture menuBackground1;
@@ -103,8 +103,7 @@ int main()
     queue = 5;
     while (ismenu) {
         sf::Event event;
-        
-        
+
         while (menuNum == 1) {
             while (window.pollEvent(event)) {
                 if (event.type == Event::Closed) {
@@ -113,9 +112,9 @@ int main()
                     ismenu = false;
                 }
                 if (event.type == Event::Resized) {
-                	height = event.size.height;
-    				width = event.size.width;
-    				switcher(menuNum, position, 12, height, width);
+                    height = event.size.height;
+                    width = event.size.width;
+                    switcher(menuNum, position, 12, height, width);
                 }
             }
             window.draw(menuBg1);
@@ -177,9 +176,9 @@ int main()
                     ismenu = false;
                 }
                 if (event.type == Event::Resized) {
-                	height = event.size.height;
-    				width = event.size.width;
-    				switcher(menuNum, position, 12, height, width);
+                    height = event.size.height;
+                    width = event.size.width;
+                    switcher(menuNum, position, 12, height, width);
                 }
             }
             window.draw(menuBg1);
@@ -312,9 +311,10 @@ int main()
                 check = 0;
             }
             //
-            timeremain = (starttime - mistakes * penalty
-                     - clock.getElapsedTime().asSeconds() + countseries * bonus - timepause)
-                    ;
+            timeremain
+                    = (starttime - mistakes * penalty
+                       - clock.getElapsedTime().asSeconds()
+                       + countseries * bonus - timepause);
             time = "Time left: ";
             time += std::to_string(timeremain / 60);
             time += ":";
@@ -327,9 +327,9 @@ int main()
                     ismenu = false;
                 }
                 if (event.type == Event::Resized) {
-                	height = event.size.height;
-    				width = event.size.width;
-    			}
+                    height = event.size.height;
+                    width = event.size.width;
+                }
                 Exercise(
                         event,
                         &print_correct_letter,
@@ -369,7 +369,8 @@ int main()
             }
             window.display();
             if (Keyboard::isKeyPressed(Keyboard::Escape)) {
-            	timepause = starttime - timeremain - mistakes * penalty + countseries * bonus;//////////////////////
+                timepause = starttime - timeremain - mistakes * penalty
+                        + countseries * bonus; //////////////////////
                 menuNum = 5;
                 switcher(menuNum, position, 12, height, width);
                 menuBackground1.loadFromFile("images/fon4.jpg");
@@ -377,7 +378,7 @@ int main()
                 menuBg1.setPosition(0, 0);
             }
         }
-        while (menuNum == 5){
+        while (menuNum == 5) {
             while (window.pollEvent(event)) {
                 if (event.type == Event::Closed) {
                     window.close();
@@ -385,9 +386,9 @@ int main()
                     ismenu = false;
                 }
                 if (event.type == Event::Resized) {
-                	height = event.size.height;
-    				width = event.size.width;
-    				switcher(menuNum, position, 12, height, width);
+                    height = event.size.height;
+                    width = event.size.width;
+                    switcher(menuNum, position, 12, height, width);
                 }
             }
             window.draw(menuBg1);
@@ -411,7 +412,7 @@ int main()
                         if (print_correct_letter == true)
                             window.draw(RightLetter);
                         window.draw(text);
-                        
+
                         window.display();
 
                         naj = false;
@@ -451,7 +452,7 @@ int main()
                     }
                 }
             }
-          }
+        }
     }
     return 0;
 }
@@ -496,7 +497,7 @@ void gameloop(
     }
     bool gameover = false;
     Clock clock;
-    //double elaps = clock.restart();
+    // double elaps = clock.restart();
     while (!gameover) {
         Exercise(
                 event,
@@ -509,12 +510,10 @@ void gameloop(
                 &queue,
                 count,
                 &intseries);
-        //elaps = clock.getElapsedTime().asSeconds();
-        //std::cout << elaps << "\n";
+        // elaps = clock.getElapsedTime().asSeconds();
+        // std::cout << elaps << "\n";
         if (Keyboard::isKeyPressed(Keyboard::Escape)) {
             return;
         }
     }
 }
-
-
