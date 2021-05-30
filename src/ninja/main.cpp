@@ -14,6 +14,7 @@ void gameloop(
         long unsigned int current_letter,
         std::string lines[],
         std::string& utf88,
+        std::string& mistake,
         int current_string);
 
 int main()
@@ -93,6 +94,12 @@ int main()
     Series.setFillColor(sf::Color::Black);
     Series.setStyle(sf::Text::Bold);
     Series.setPosition(180, 10);
+    sf::Text Mistake;
+    std::string mistake;
+    Mistake.setFont(font);
+    Mistake.setCharacterSize(24);
+    Mistake.setStyle(sf::Text::Bold);
+    Mistake.setPosition(30, 350);
     count = GetRandomText(&lines);
     utf88.clear();
     print_correct_letter = false;
@@ -103,8 +110,8 @@ int main()
     queue = 5;
     while (ismenu) {
         sf::Event event;
-
         while (menuNum == 1) {
+            mistake.clear();
             while (window.pollEvent(event)) {
                 if (event.type == Event::Closed) {
                     window.close();
@@ -336,6 +343,7 @@ int main()
                         &current_letter,
                         lines,
                         utf88,
+                        mistake,
                         &current_string,
                         &mistakes,
                         &queue,
@@ -352,6 +360,11 @@ int main()
             series = "Current series: ";
             series += std::to_string(intseries);
             Series.setString(series);
+            if (mistake == "Good!")
+                Mistake.setFillColor(sf::Color::Green);
+            else
+                Mistake.setFillColor(sf::Color::Red);
+            Mistake.setString(mistake);
             for (strings_to_print = 0; strings_to_print < queue;
                  strings_to_print++) {
                 text.setString(String::fromUtf8(
@@ -366,6 +379,7 @@ int main()
                 window.draw(timer);
                 window.draw(Mistakes);
                 window.draw(text);
+                window.draw(Mistake);
             }
             window.display();
             if (Keyboard::isKeyPressed(Keyboard::Escape)) {
@@ -466,6 +480,7 @@ void gameloop(
         long unsigned int current_letter,
         std::string lines[],
         std::string& utf88,
+        std::string& mistake,
         int current_string,
         int mistakes,
         int queue,
@@ -505,6 +520,7 @@ void gameloop(
                 &current_letter,
                 lines,
                 utf88,
+                mistake,
                 &current_string,
                 &mistakes,
                 &queue,
