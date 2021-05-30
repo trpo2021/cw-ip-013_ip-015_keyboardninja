@@ -1,8 +1,9 @@
 #include <libninja/level.hpp>
 
-void level(int lvl, int* starttime, float* penalty, float* bonus, int* bonusseries)
+void level(
+        int lvl, int* starttime, float* penalty, float* bonus, int* bonusseries)
 {
-	switch (lvl) {
+    switch (lvl) {
     case 0:
         (*starttime) = 180;
         (*penalty) = 1;
