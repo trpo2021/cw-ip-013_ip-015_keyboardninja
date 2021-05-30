@@ -17,6 +17,7 @@ void InvoiceProcessing(
         long unsigned int* current_letter,
         std::string lines[],
         std::string& utf88,
+        std::string& mistake,
         int current_string,
         int* intseries,
         int* mistakes,
@@ -26,9 +27,12 @@ void InvoiceProcessing(
         utf88 = utf88 + (char)(event.key.code);
         (*current_letter)++;
         (*intseries)++;
+        mistake.clear();
+        mistake = "Good!";
     } else {
         (*mistakes)++;
         (*intseries) = 0;
+        mistake = "Mistake!";
     }
 }
 
@@ -57,6 +61,7 @@ void Exercise(
         long unsigned int* current_letter,
         std::string lines[],
         std::string& utf88,
+        std::string& mistake,
         int* current_string,
         int* mistakes,
         int* queue,
@@ -73,6 +78,7 @@ void Exercise(
                 current_letter,
                 lines,
                 utf88,
+                mistake,
                 *current_string,
                 intseries,
                 mistakes,
