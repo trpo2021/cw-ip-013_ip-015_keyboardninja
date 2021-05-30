@@ -1,10 +1,17 @@
 #include <ctest.h>
 #include <libninja/readingfile.hpp>
-CTEST(count, lines)
+CTEST(count_real, lines)
 {
     std::string* lines = nullptr;
     const int count = GetStringsFromFileS("texts/1.txt", &lines);
     ASSERT_EQUAL(count, 15);
+}
+
+CTEST(count_not_real, lines)
+{
+    std::string* lines = nullptr;
+    const int count = GetStringsFromFileS("texts/564.txt", &lines);
+    ASSERT_EQUAL(count, -1);
 }
 
 CTEST(read, lines)
