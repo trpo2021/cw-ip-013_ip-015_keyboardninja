@@ -369,7 +369,7 @@ int main()
             }
             window.display();
             if (Keyboard::isKeyPressed(Keyboard::Escape)) {
-            	timepause = starttime - timeremain;//////////////////////
+            	timepause = starttime - timeremain - mistakes * penalty + countseries * bonus;//////////////////////
                 menuNum = 5;
                 switcher(menuNum, position, 12, height, width);
                 menuBackground1.loadFromFile("images/fon4.jpg");
