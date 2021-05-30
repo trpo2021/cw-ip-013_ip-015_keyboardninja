@@ -9,6 +9,7 @@ CTEST(mistake_true, exercise)
     std::string* lines = nullptr;
     GetStringsFromFileS("texts/1.txt", &lines);
     std::string utf88 = "BCF";
+    std::string mistake;
     int current_string = 0;
     int mistakes = 0;
     int intseries = 0;
@@ -18,6 +19,7 @@ CTEST(mistake_true, exercise)
             &current_letter,
             lines,
             utf88,
+            mistake,
             current_string,
             &intseries,
             &mistakes,
@@ -32,6 +34,7 @@ CTEST(mistake_false, exercise)
     std::string* lines = nullptr;
     GetStringsFromFileS("texts/1.txt", &lines);
     std::string utf88 = "BCF";
+    std::string mistake;
     int current_string = 0;
     int mistakes = 0;
     int intseries = 0;
@@ -41,6 +44,7 @@ CTEST(mistake_false, exercise)
             &current_letter,
             lines,
             utf88,
+            mistake,
             current_string,
             &intseries,
             &mistakes,
@@ -68,6 +72,7 @@ CTEST(series_up, exercise)
     std::string* lines = nullptr;
     GetStringsFromFileS("texts/1.txt", &lines);
     std::string utf88 = "BCF";
+    std::string mistake;
     int current_string = 0;
     int mistakes = 0;
     int intseries = 5;
@@ -77,6 +82,7 @@ CTEST(series_up, exercise)
             &current_letter,
             lines,
             utf88,
+            mistake,
             current_string,
             &intseries,
             &mistakes,
@@ -91,6 +97,7 @@ CTEST(series_down, exercise)
     std::string* lines = nullptr;
     GetStringsFromFileS("texts/1.txt", &lines);
     std::string utf88 = "BCF";
+    std::string mistake;
     int current_string = 0;
     int mistakes = 0;
     int intseries = 5;
@@ -100,6 +107,7 @@ CTEST(series_down, exercise)
             &current_letter,
             lines,
             utf88,
+            mistake,
             current_string,
             &intseries,
             &mistakes,
