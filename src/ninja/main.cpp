@@ -19,7 +19,8 @@ void gameloop(
 
 int main()
 {
-    setlocale(LC_ALL, "Russian");
+    ContextSettings settings;
+    settings.antialiasingLevel = 8;
     Clock clock;
     int timepause = 0;
     int timeremain = 0;
@@ -97,9 +98,9 @@ int main()
     sf::Text Mistake;
     std::string mistake;
     Mistake.setFont(font);
-    Mistake.setCharacterSize(24);
+    Mistake.setCharacterSize(30);
     Mistake.setStyle(sf::Text::Bold);
-    Mistake.setPosition(30, 350);
+    Mistake.setPosition(480, 400);
     count = GetRandomText(&lines);
     utf88.clear();
     print_correct_letter = false;
@@ -113,6 +114,7 @@ int main()
         while (menuNum == 1) {
             mistake.clear();
             while (window.pollEvent(event)) {
+                window.setFramerateLimit(60);
                 if (event.type == Event::Closed) {
                     window.close();
                     menuNum = 0;
@@ -350,6 +352,10 @@ int main()
                         count,
                         &intseries);
             }
+            if (intseries > 20) {
+                mistake = "EXCELLENT!";
+                Mistake.setFillColor(sf::Color::Green);
+            }
             mistakes_print = "Mistakes: " + std::to_string(mistakes);
             Mistakes.setString(mistakes_print);
             RightLetter.setString(
@@ -360,9 +366,9 @@ int main()
             series = "Current series: ";
             series += std::to_string(intseries);
             Series.setString(series);
-            if (mistake == "Good!")
+            if (mistake == "GOOD!")
                 Mistake.setFillColor(sf::Color::Green);
-            else
+            if (mistake == "Mistake!")
                 Mistake.setFillColor(sf::Color::Red);
             Mistake.setString(mistake);
             for (strings_to_print = 0; strings_to_print < queue;
