@@ -6,8 +6,8 @@ CFLAGS = -Wall -Werror
 CPPFLAGS = -MMD -I src/resources/sfml/include -I src
 CPPFLAGS_TEST = -MP -MMD -I src/resources/sfml/include -I src -I thirdparty
 
-PATH_SFML =  sfml/lib
-LIBS = -L $(PATH_SFML) -Wl,-rpath=sfml/lib  -lsfml-graphics -lsfml-window -lsfml-system
+PATH_SFML =  src/resources/sfml/lib
+LIBS = -L $(PATH_SFML) -Wl,-rpath=src/resources/sfml/lib  -lsfml-graphics -lsfml-window -lsfml-system
 
 CC = g++
 CXX = clang++
