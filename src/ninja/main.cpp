@@ -51,12 +51,12 @@ int main()
     sf::RenderWindow window(sf::VideoMode(width, height), "ninja");
     //////////////
     Texture menuBackground1;
-    menuBackground1.loadFromFile("images/fon.jpg");
+    menuBackground1.loadFromFile("src/resources/images/fon.jpg");
     Sprite menuBg1(menuBackground1);
     menuBg1.setPosition(0, 0);
     //////////////
     sf::Font font;
-    if (!font.loadFromFile("fonts/19939.otf")) {
+    if (!font.loadFromFile("src/resources/fonts/19939.otf")) {
         std::cout << "ERROR" << std::endl;
     }
     bool print_correct_letter = false;
@@ -139,7 +139,8 @@ int main()
                         && (event.mouseButton.button == Mouse::Left)) {
                         menuNum = 2;
                         switcher(menuNum, position, 12, height, width);
-                        menuBackground1.loadFromFile("images/fon1.jpg");
+                        menuBackground1.loadFromFile(
+                                "src/resources/images/fon1.jpg");
                         Sprite menuBg1(menuBackground1);
                         menuBg1.setPosition(0, 0);
                         naj = false;
@@ -156,7 +157,8 @@ int main()
                         && (event.mouseButton.button == Mouse::Left)) {
                         menuNum = 3;
                         switcher(menuNum, position, 12, height, width);
-                        menuBackground1.loadFromFile("images/fon2.jpg");
+                        menuBackground1.loadFromFile(
+                                "src/resources/images/fon2.jpg");
                         Sprite menuBg1(menuBackground1);
                         menuBg1.setPosition(0, 0);
                         naj = false;
@@ -209,7 +211,8 @@ int main()
                         // lvl = easy
                         lvl = 0;
                         window.clear();
-                        menuBackground1.loadFromFile("images/fon3.jpg");
+                        menuBackground1.loadFromFile(
+                                "src/resources/images/fon3.jpg");
                         Sprite menuBg1(menuBackground1);
                         menuBg1.setPosition(0, 0);
                         switcher(menuNum, position, 12, height, width);
@@ -239,7 +242,8 @@ int main()
                         // lvl = normal
                         lvl = 1;
                         window.clear();
-                        menuBackground1.loadFromFile("images/fon3.jpg");
+                        menuBackground1.loadFromFile(
+                                "src/resources/images/fon3.jpg");
                         Sprite menuBg1(menuBackground1);
                         menuBg1.setPosition(0, 0);
                         switcher(menuNum, position, 12, height, width);
@@ -269,7 +273,8 @@ int main()
                         // lvl = hard
                         lvl = 2;
                         window.clear();
-                        menuBackground1.loadFromFile("images/fon3.jpg");
+                        menuBackground1.loadFromFile(
+                                "src/resources/images/fon3.jpg");
                         Sprite menuBg1(menuBackground1);
                         menuBg1.setPosition(0, 0);
                         switcher(menuNum, position, 12, height, width);
@@ -286,7 +291,7 @@ int main()
             if (Keyboard::isKeyPressed(Keyboard::Escape)) {
                 menuNum = 1;
                 switcher(menuNum, position, 12, height, width);
-                menuBackground1.loadFromFile("images/fon.jpg");
+                menuBackground1.loadFromFile("src/resources/images/fon.jpg");
                 Sprite menuBg1(menuBackground1);
                 menuBg1.setPosition(0, 0);
             }
@@ -304,7 +309,7 @@ int main()
             if (Keyboard::isKeyPressed(Keyboard::Escape)) {
                 menuNum = 1;
                 switcher(menuNum, position, 12, height, width);
-                menuBackground1.loadFromFile("images/fon.jpg");
+                menuBackground1.loadFromFile("src/resources/images/fon.jpg");
                 Sprite menuBg1(menuBackground1);
                 menuBg1.setPosition(0, 0);
             }
@@ -393,7 +398,7 @@ int main()
                         + countseries * bonus; //////////////////////
                 menuNum = 5;
                 switcher(menuNum, position, 12, height, width);
-                menuBackground1.loadFromFile("images/fon4.jpg");
+                menuBackground1.loadFromFile("src/resources/images/fon4.jpg");
                 Sprite menuBg1(menuBackground1);
                 menuBg1.setPosition(0, 0);
             }
@@ -425,7 +430,8 @@ int main()
                         // clock
                         clock.restart();
                         window.clear();
-                        menuBackground1.loadFromFile("images/fon3.jpg");
+                        menuBackground1.loadFromFile(
+                                "src/resources/images/fon3.jpg");
                         Sprite menuBg1(menuBackground1);
                         menuBg1.setPosition(0, 0);
                         switcher(menuNum, position, 12, height, width);
@@ -455,7 +461,8 @@ int main()
                         intseries = 0;
                         countseries = 0;
                         //
-                        menuBackground1.loadFromFile("images/fon.jpg");
+                        menuBackground1.loadFromFile(
+                                "src/resources/images/fon.jpg");
                         Sprite menuBg1(menuBackground1);
                         menuBg1.setPosition(0, 0);
                         switcher(menuNum, position, 12, height, width);
