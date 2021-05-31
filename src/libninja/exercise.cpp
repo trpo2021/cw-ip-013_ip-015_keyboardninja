@@ -28,7 +28,7 @@ void InvoiceProcessing(
         (*current_letter)++;
         (*intseries)++;
         mistake.clear();
-        mistake = "Good!";
+        mistake = "GOOD!";
     } else {
         (*mistakes)++;
         (*intseries) = 0;
