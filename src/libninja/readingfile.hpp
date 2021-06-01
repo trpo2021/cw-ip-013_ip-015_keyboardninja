@@ -3,7 +3,5 @@
 #include <iostream>
 #include <string>
 
-using namespace std;
-
-int CountLinesInFile(string filename);
-int GetStringsFromFileS(string filename, string** _lines);
+int CountLinesInFile(std::string filename);
+int GetStringsFromFileS(std::string filename, std::string** _lines);
