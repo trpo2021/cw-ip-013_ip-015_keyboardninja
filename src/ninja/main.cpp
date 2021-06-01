@@ -7,16 +7,6 @@
 
 using namespace sf;
 
-void gameloop(
-        int lvl,
-        sf::Event& event,
-        bool print_correct_letter,
-        long unsigned int current_letter,
-        std::string lines[],
-        std::string& utf88,
-        std::string& mistake,
-        int current_string);
-
 int main()
 {
     ContextSettings settings;
@@ -48,32 +38,32 @@ int main()
     std::string mistake_message;
     int height = 660;
     int width = 1050;
-    sf::RenderWindow window(sf::VideoMode(width, height), "ninja");
+    RenderWindow window(sf::VideoMode(width, height), "ninja");
     //////////////
     Texture menuBackground1;
     menuBackground1.loadFromFile("src/resources/images/fon.jpg");
     Sprite menuBg1(menuBackground1);
     menuBg1.setPosition(0, 0);
     //////////////
-    sf::Font font;
+    Font font;
     if (!font.loadFromFile("src/resources/fonts/19939.otf")) {
         std::cout << "ERROR" << std::endl;
     }
     bool print_correct_letter = false;
-    sf::Text text;
+    Text text;
     text.setFont(font);
     text.setCharacterSize(24);
     text.setFillColor(sf::Color::Green);
     text.setStyle(sf::Text::Bold);
     text.setPosition(30, 200);
-    sf::Text RightLetter;
+    Text RightLetter;
     std::string utf88;
     RightLetter.setFont(font);
     RightLetter.setCharacterSize(24);
     RightLetter.setFillColor(sf::Color::Black);
     RightLetter.setStyle(sf::Text::Bold);
     RightLetter.setPosition(30, 300);
-    sf::Text timer;
+    Text timer;
     std::string time = "Time left: ";
     timer.setFont(font);
     timer.setString(time);
@@ -81,13 +71,13 @@ int main()
     timer.setFillColor(sf::Color::Black);
     timer.setStyle(sf::Text::Bold);
     timer.setPosition(10, 600);
-    sf::Text Mistakes;
+    Text Mistakes;
     Mistakes.setFont(font);
     Mistakes.setCharacterSize(24);
     Mistakes.setFillColor(sf::Color::Red);
     Mistakes.setStyle(sf::Text::Bold);
     Mistakes.setPosition(10, 10);
-    sf::Text Series;
+    Text Series;
     std::string series = "Current series: ";
     Series.setFont(font);
     Series.setString(series);
@@ -95,7 +85,7 @@ int main()
     Series.setFillColor(sf::Color::Black);
     Series.setStyle(sf::Text::Bold);
     Series.setPosition(180, 10);
-    sf::Text Mistake;
+    Text Mistake;
     std::string mistake;
     Mistake.setFont(font);
     Mistake.setCharacterSize(30);
@@ -110,7 +100,7 @@ int main()
     current_string = 0;
     queue = 5;
     while (ismenu) {
-        sf::Event event;
+        Event event;
         while (menuNum == 1) {
             mistake.clear();
             while (window.pollEvent(event)) {
@@ -135,7 +125,7 @@ int main()
                     naj = true;
                 }
                 while (window.pollEvent(event)) {
-                    if ((event.type == sf::Event::MouseButtonReleased) && (naj)
+                    if ((event.type == Event::MouseButtonReleased) && (naj)
                         && (event.mouseButton.button == Mouse::Left)) {
                         menuNum = 2;
                         switcher(menuNum, position, 12, height, width);
@@ -153,7 +143,7 @@ int main()
                     naj = true;
                 }
                 while (window.pollEvent(event)) {
-                    if ((event.type == sf::Event::MouseButtonReleased) && (naj)
+                    if ((event.type == Event::MouseButtonReleased) && (naj)
                         && (event.mouseButton.button == Mouse::Left)) {
                         menuNum = 3;
                         switcher(menuNum, position, 12, height, width);
@@ -171,7 +161,7 @@ int main()
                     naj = true;
                 }
                 while (window.pollEvent(event)) {
-                    if ((event.type == sf::Event::MouseButtonReleased) && (naj)
+                    if ((event.type == Event::MouseButtonReleased) && (naj)
                         && (event.mouseButton.button == Mouse::Left)) {
                         ismenu = false;
                         menuNum = 0;
@@ -200,7 +190,7 @@ int main()
                     naj = true;
                 }
                 while (window.pollEvent(event)) {
-                    if ((event.type == sf::Event::MouseButtonReleased) && (naj)
+                    if ((event.type == Event::MouseButtonReleased) && (naj)
                         && (event.mouseButton.button == Mouse::Left)) {
                         menuNum = 4;
                         // clock
@@ -231,7 +221,7 @@ int main()
                     naj = true;
                 }
                 while (window.pollEvent(event)) {
-                    if ((event.type == sf::Event::MouseButtonReleased) && (naj)
+                    if ((event.type == Event::MouseButtonReleased) && (naj)
                         && (event.mouseButton.button == Mouse::Left)) {
                         menuNum = 4;
                         // clock
@@ -262,7 +252,7 @@ int main()
                     naj = true;
                 }
                 while (window.pollEvent(event)) {
-                    if ((event.type == sf::Event::MouseButtonReleased) && (naj)
+                    if ((event.type == Event::MouseButtonReleased) && (naj)
                         && (event.mouseButton.button == Mouse::Left)) {
                         menuNum = 4;
                         // clock
@@ -363,8 +353,7 @@ int main()
             }
             mistakes_print = "Mistakes: " + std::to_string(mistakes);
             Mistakes.setString(mistakes_print);
-            RightLetter.setString(
-                    sf::String::fromUtf8(utf88.begin(), utf88.end()));
+            RightLetter.setString(String::fromUtf8(utf88.begin(), utf88.end()));
             window.draw(menuBg1);
             if (print_correct_letter == true)
                 window.draw(RightLetter);
@@ -372,9 +361,9 @@ int main()
             series += std::to_string(intseries);
             Series.setString(series);
             if (mistake == "GOOD!")
-                Mistake.setFillColor(sf::Color::Green);
+                Mistake.setFillColor(Color::Green);
             if (mistake == "Mistake!")
-                Mistake.setFillColor(sf::Color::Red);
+                Mistake.setFillColor(Color::Red);
             Mistake.setString(mistake);
             for (strings_to_print = 0; strings_to_print < queue;
                  strings_to_print++) {
@@ -424,7 +413,7 @@ int main()
                     naj = true;
                 }
                 while (window.pollEvent(event)) {
-                    if ((event.type == sf::Event::MouseButtonReleased) && (naj)
+                    if ((event.type == Event::MouseButtonReleased) && (naj)
                         && (event.mouseButton.button == Mouse::Left)) {
                         menuNum = 4;
                         // clock
@@ -451,7 +440,7 @@ int main()
                     naj = true;
                 }
                 while (window.pollEvent(event)) {
-                    if ((event.type == sf::Event::MouseButtonReleased) && (naj)
+                    if ((event.type == Event::MouseButtonReleased) && (naj)
                         && (event.mouseButton.button == Mouse::Left)) {
                         menuNum = 1;
                         // clock
@@ -482,67 +471,4 @@ int main()
         }
     }
     return 0;
-}
-
-// game//
-
-void gameloop(
-        int lvl,
-        sf::Event& event,
-        bool print_correct_letter,
-        long unsigned int current_letter,
-        std::string lines[],
-        std::string& utf88,
-        std::string& mistake,
-        int current_string,
-        int mistakes,
-        int queue,
-        int count,
-        int intseries)
-{ /*
-      int starttime, bonusseries;
-      float penalty, bonus;*/
-
-    switch (lvl) {
-    case 0:
-        /*starttime = 180;
-        penalty = 1;
-        bonusseries = 20;
-        bonus = 1.5;*/
-        break;
-    case 1:
-        /*starttime = 180;
-        penalty = 2;
-        bonusseries = 30;
-        bonus = 1;*/
-        break;
-    case 2:
-        /*starttime = 120;
-        penalty = 3.5;
-        bonusseries = 40;
-        bonus = 1;*/
-        break;
-    }
-    bool gameover = false;
-    Clock clock;
-    // double elaps = clock.restart();
-    while (!gameover) {
-        Exercise(
-                event,
-                &print_correct_letter,
-                &current_letter,
-                lines,
-                utf88,
-                mistake,
-                &current_string,
-                &mistakes,
-                &queue,
-                count,
-                &intseries);
-        // elaps = clock.getElapsedTime().asSeconds();
-        // std::cout << elaps << "\n";
-        if (Keyboard::isKeyPressed(Keyboard::Escape)) {
-            return;
-        }
-    }
 }
