@@ -1,5 +1,6 @@
 #include <libninja/readingfile.hpp>
 
+using namespace std;
 int CountLinesInFile(string filename)
 {
     ifstream F(filename, ios::in);
