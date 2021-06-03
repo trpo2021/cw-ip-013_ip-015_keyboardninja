@@ -68,6 +68,30 @@ void switcher(int menuNum, int* A, int N, int height, int width)
         ;
         break;
 
+    case 6:
+        // first button
+        A[0] = 752 * (width / (float)1050);
+        A[1] = 539 * (height / (float)660);
+        ;
+        A[2] = 275 * (width / (float)1050);
+        A[3] = 36 * (height / (float)660);
+        ;
+        // second button
+        A[4] = 820 * (width / (float)1050);
+        A[5] = 600 * (height / (float)660);
+        ;
+        A[6] = 135 * (width / (float)1050);
+        A[7] = 36 * (height / (float)660);
+        ;
+        // third button
+        A[8] = 0;
+        A[9] = 0;
+        ;
+        A[10] = 0;
+        A[11] = 0;
+        ;
+        break;
+
     default:
         for (int i = 0; i < 12; i++)
             A[i] = 0;

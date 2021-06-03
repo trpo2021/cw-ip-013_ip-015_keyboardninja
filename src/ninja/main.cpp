@@ -391,6 +391,34 @@ int main()
                 Sprite menuBg1(menuBackground1);
                 menuBg1.setPosition(0, 0);
             }
+            if(timeremain<=0){
+                menuNum = 6;
+                switcher(menuNum, position, 12, height, width);
+                menuBackground1.loadFromFile("src/resources/images/fon5.jpg");
+                Sprite menuBg1(menuBackground1);
+                menuBg1.setPosition(0, 0);
+            }
+            if (queue==count) {
+                menuNum = 6;
+                switcher(menuNum, position, 12, height, width);
+                menuBackground1.loadFromFile("src/resources/images/fon6.jpg");
+                Sprite menuBg1(menuBackground1);
+                menuBg1.setPosition(0, 0);
+            }
+            if (queue == count) {
+                menuNum = 6;
+                switcher(menuNum, position, 12, height, width);
+                menuBackground1.loadFromFile("src/resources/images/fon7.jpg");
+                Sprite menuBg1(menuBackground1);
+                menuBg1.setPosition(0, 0);
+            }
+            if (queue == count) {
+                menuNum = 6;
+                switcher(menuNum, position, 12, height, width);
+                menuBackground1.loadFromFile("src/resources/images/fon8.jpg");
+                Sprite menuBg1(menuBackground1);
+                menuBg1.setPosition(0, 0);
+            }
         }
         while (menuNum == 5) {
             while (window.pollEvent(event)) {
@@ -469,6 +497,91 @@ int main()
                 }
             }
         }
+        while (menuNum == 6){
+            while (window.pollEvent(event)) {
+                if (event.type == Event::Closed) {
+                    window.close();
+                    menuNum = 0;
+                    ismenu = false;
+                }
+                if (event.type == Event::Resized) {
+                    height = event.size.height;
+                    width = event.size.width;
+                    switcher(menuNum, position, 12, height, width);
+                }
+            }
+            window.draw(menuBg1);
+            window.display();
+            if (IntRect(position[0], position[1], position[2], position[3])
+                        .contains(Mouse::getPosition(window))) {
+                if ((Mouse::isButtonPressed(Mouse::Left)) && (!naj)) {
+                    naj = true;
+                }
+                while (window.pollEvent(event)) {
+                    if ((event.type == Event::MouseButtonReleased) && (naj)
+                        && (event.mouseButton.button == Mouse::Left)) {
+                        menuNum = 4;
+                        // clock
+                        clock.restart();
+                        timepause = 0;
+                        // series reset
+                        intseries = 0;
+                        countseries = 0;
+                        //
+                        menuBackground1.loadFromFile(
+                                "src/resources/images/fon3.jpg");
+                        Sprite menuBg1(menuBackground1);
+                        menuBg1.setPosition(0, 0);
+                        switcher(menuNum, position, 12, height, width);
+                        window.clear();
+                        naj = false;
+                        count = GetRandomText(&lines);
+                        utf88.clear();
+                        print_correct_letter = false;
+                        mistake.clear();
+                        current_letter = 0;
+                        mistakes = 0;
+                        current_string = 0;
+                        queue = 5;
+                    }
+                }
+            }
+            if (IntRect(position[4], position[5], position[6], position[7])
+                        .contains(Mouse::getPosition(window))) {
+                if ((Mouse::isButtonPressed(Mouse::Left)) && (!naj)) {
+                    naj = true;
+                }
+                while (window.pollEvent(event)) {
+                    if ((event.type == Event::MouseButtonReleased) && (naj)
+                        && (event.mouseButton.button == Mouse::Left)) {
+                        menuNum = 1;
+                        // clock
+                        clock.restart();
+                        timepause = 0;
+                        // series reset
+                        intseries = 0;
+                        countseries = 0;
+                        //
+                        menuBackground1.loadFromFile(
+                                "src/resources/images/fon.jpg");
+                        Sprite menuBg1(menuBackground1);
+                        menuBg1.setPosition(0, 0);
+                        switcher(menuNum, position, 12, height, width);
+                        window.clear();
+                        naj = false;
+                        count = GetRandomText(&lines);
+                        utf88.clear();
+                        print_correct_letter = false;
+
+                        current_letter = 0;
+                        mistakes = 0;
+                        current_string = 0;
+                        queue = 5;
+                    }
+                }
+            }
+        }
+        
     }
     return 0;
 }
