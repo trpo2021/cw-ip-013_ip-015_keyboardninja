@@ -391,6 +391,13 @@ int main()
                 Sprite menuBg1(menuBackground1);
                 menuBg1.setPosition(0, 0);
             }
+            if(timeremain<=0){
+                menuNum = 6;
+                switcher(menuNum, position, 12, height, width);
+                menuBackground1.loadFromFile("src/resources/images/fon5.jpg");
+                Sprite menuBg1(menuBackground1);
+                menuBg1.setPosition(0, 0);
+            }
         }
         while (menuNum == 5) {
             while (window.pollEvent(event)) {
@@ -468,6 +475,22 @@ int main()
                     }
                 }
             }
+        }
+        while (menuNum == 6){
+            while (window.pollEvent(event)) {
+                if (event.type == Event::Closed) {
+                    window.close();
+                    menuNum = 0;
+                    ismenu = false;
+                }
+                if (event.type == Event::Resized) {
+                    height = event.size.height;
+                    width = event.size.width;
+                    switcher(menuNum, position, 12, height, width);
+                }
+            }
+            window.draw(menuBg1);
+            window.display();
         }
     }
     return 0;
