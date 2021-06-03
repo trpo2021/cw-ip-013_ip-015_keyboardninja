@@ -398,6 +398,27 @@ int main()
                 Sprite menuBg1(menuBackground1);
                 menuBg1.setPosition(0, 0);
             }
+            if (queue==count) {
+                menuNum = 6;
+                switcher(menuNum, position, 12, height, width);
+                menuBackground1.loadFromFile("src/resources/images/fon6.jpg");
+                Sprite menuBg1(menuBackground1);
+                menuBg1.setPosition(0, 0);
+            }
+            if (queue == count) {
+                menuNum = 6;
+                switcher(menuNum, position, 12, height, width);
+                menuBackground1.loadFromFile("src/resources/images/fon7.jpg");
+                Sprite menuBg1(menuBackground1);
+                menuBg1.setPosition(0, 0);
+            }
+            if (queue == count) {
+                menuNum = 6;
+                switcher(menuNum, position, 12, height, width);
+                menuBackground1.loadFromFile("src/resources/images/fon8.jpg");
+                Sprite menuBg1(menuBackground1);
+                menuBg1.setPosition(0, 0);
+            }
         }
         while (menuNum == 5) {
             while (window.pollEvent(event)) {
