@@ -77,11 +77,11 @@ void switcher(int menuNum, int* A, int N, int height, int width)
         A[3] = 36 * (height / (float)660);
         ;
         // second button
-        A[4] = 144 * (width / (float)1050);
-        A[5] = 309 * (height / (float)660);
+        A[4] = 820 * (width / (float)1050);
+        A[5] = 600 * (height / (float)660);
         ;
-        A[6] = 752 * (width / (float)1050);
-        A[7] = 64 * (height / (float)660);
+        A[6] = 135 * (width / (float)1050);
+        A[7] = 36 * (height / (float)660);
         ;
         // third button
         A[8] = 0;
