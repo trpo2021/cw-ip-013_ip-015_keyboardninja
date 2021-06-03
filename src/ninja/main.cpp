@@ -3,6 +3,7 @@
 #include <libninja/level.hpp>
 #include <libninja/randomtext.hpp>
 #include <libninja/switcher.hpp>
+#include <libninja/stars.hpp>
 #include <sstream>
 
 using namespace sf;
@@ -398,27 +399,33 @@ int main()
                 Sprite menuBg1(menuBackground1);
                 menuBg1.setPosition(0, 0);
             }
-            if (queue==count) {
-                menuNum = 6;
-                switcher(menuNum, position, 12, height, width);
-                menuBackground1.loadFromFile("src/resources/images/fon6.jpg");
-                Sprite menuBg1(menuBackground1);
-                menuBg1.setPosition(0, 0);
-            }
             if (queue == count) {
-                menuNum = 6;
+            	menuNum = 6;
                 switcher(menuNum, position, 12, height, width);
-                menuBackground1.loadFromFile("src/resources/images/fon7.jpg");
-                Sprite menuBg1(menuBackground1);
+            	int star = stars(mistakes, timeremain);
+            	switch(star)
+            	{
+            		case 0:
+                		menuBackground1.loadFromFile("src/resources/images/fon5.jpg");
+       					break;
+       				case 1:
+                		menuBackground1.loadFromFile("src/resources/images/fon6.jpg");
+                		break;
+                	case 2:
+                		menuBackground1.loadFromFile("src/resources/images/fon7.jpg");
+                		break;
+                	case 3:
+                		menuBackground1.loadFromFile("src/resources/images/fon8.jpg");
+                		break;
+                	default:
+                		menuBackground1.loadFromFile("src/resources/images/fon5.jpg");
+                		break;
+            	}
+            	Sprite menuBg1(menuBackground1);
                 menuBg1.setPosition(0, 0);
+                
             }
-            if (queue == count) {
-                menuNum = 6;
-                switcher(menuNum, position, 12, height, width);
-                menuBackground1.loadFromFile("src/resources/images/fon8.jpg");
-                Sprite menuBg1(menuBackground1);
-                menuBg1.setPosition(0, 0);
-            }
+            
         }
         while (menuNum == 5) {
             while (window.pollEvent(event)) {
@@ -511,6 +518,21 @@ int main()
                 }
             }
             window.draw(menuBg1);
+            Text Mesg;
+            Mesg.setFont(font);
+    		Mesg.setCharacterSize(48);
+    		Mesg.setFillColor(sf::Color::Black);
+    		Mesg.setStyle(sf::Text::Bold);
+    		
+    		string mesg[2];
+    		mesg[0] = "Mistakes: " + std::to_string(mistakes);
+    		mesg[1] = "Time remain: " + std::to_string(timeremain/60) + ":" + std::to_string(timeremain % (int)60);
+    		for(int i = 0; i < 2; i++)
+    		{
+    			Mesg.setString(mesg[i]);
+    			Mesg.setPosition((width/2) - 100 - 60 * i, (height/2) + i*50);
+    			window.draw(Mesg);
+    		}
             window.display();
             if (IntRect(position[0], position[1], position[2], position[3])
                         .contains(Mouse::getPosition(window))) {
