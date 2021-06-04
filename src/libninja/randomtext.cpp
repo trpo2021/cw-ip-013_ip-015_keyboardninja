@@ -12,7 +12,7 @@ int GetRandomText(std::string** _lines)
     int number_of_text = 0;
     int count = 0;
     std::string filename;
-    number_of_text = GetRandomNumber(1, 4);
+    number_of_text = GetRandomNumber(1, 6);
     filename = "texts/" + std::to_string(number_of_text) + ".txt";
     count = GetStringsFromFileS(filename, _lines);
     if (count == -1) {
