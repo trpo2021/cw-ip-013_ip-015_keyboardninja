@@ -91,7 +91,7 @@ int main()
     Mistake.setFont(font);
     Mistake.setCharacterSize(30);
     Mistake.setStyle(sf::Text::Bold);
-    Mistake.setPosition(480, 400);
+    Mistake.setPosition(30, 400);
     count = GetRandomText(&lines);
     utf88.clear();
     print_correct_letter = false;
@@ -348,10 +348,6 @@ int main()
                         count,
                         &intseries);
             }
-            if (intseries > 20) {
-                mistake = "EXCELLENT!";
-                Mistake.setFillColor(sf::Color::Green);
-            }
             mistakes_print = "Mistakes: " + std::to_string(mistakes);
             Mistakes.setString(mistakes_print);
             RightLetter.setString(String::fromUtf8(utf88.begin(), utf88.end()));
@@ -363,8 +359,12 @@ int main()
             Series.setString(series);
             if (mistake == "GOOD!")
                 Mistake.setFillColor(Color::Green);
-            if (mistake == "Mistake!")
+            if ("Mistake" == mistake.substr(0, 7))
                 Mistake.setFillColor(Color::Red);
+            if (intseries > 20) {
+                mistake = "EXCELLENT!";
+                Mistake.setFillColor(sf::Color::Green);
+            }
             Mistake.setString(mistake);
             for (strings_to_print = 0; strings_to_print < queue;
                  strings_to_print++) {

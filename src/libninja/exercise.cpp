@@ -32,7 +32,11 @@ void InvoiceProcessing(
     } else {
         (*mistakes)++;
         (*intseries) = 0;
-        mistake = "Mistake!";
+        mistake = "Mistake! Expected - ";
+        if (lines[current_string][*current_letter] == ' ')
+            mistake = mistake + "space";
+        else
+            mistake = mistake + lines[current_string][*current_letter];
     }
 }
 
