@@ -57,7 +57,7 @@ int main()
     text.setStyle(sf::Text::Bold);
     text.setPosition(30, 200);
     Text RightLetter;
-    std::string utf88;
+    std::string string_by_user;
     RightLetter.setFont(font);
     RightLetter.setCharacterSize(24);
     RightLetter.setFillColor(sf::Color::Black);
@@ -92,7 +92,7 @@ int main()
     Mistake.setStyle(sf::Text::Bold);
     Mistake.setPosition(30, 400);
     count = GetRandomText(&lines);
-    utf88.clear();
+    string_by_user.clear();
     print_correct_letter = false;
 
     current_letter = 0;
@@ -100,7 +100,7 @@ int main()
     current_string = 0;
     queue = 5;
     while (ismenu) {
-        Event event{};
+        Event event;
         while (menuNum == 1) {
             mistake.clear();
             while (window.pollEvent(event)) {
@@ -339,7 +339,7 @@ int main()
                         &print_correct_letter,
                         &current_letter,
                         lines,
-                        utf88,
+                        string_by_user,
                         mistake,
                         &current_string,
                         &mistakes,
@@ -347,9 +347,10 @@ int main()
                         count,
                         &intseries);
             }
+
             mistakes_print = "Mistakes: " + std::to_string(mistakes);
             Mistakes.setString(mistakes_print);
-            RightLetter.setString(String::fromUtf8(utf88.begin(), utf88.end()));
+            RightLetter.setString(string_by_user);
             window.draw(menuBg1);
             if (print_correct_letter)
                 window.draw(RightLetter);
@@ -367,9 +368,7 @@ int main()
             Mistake.setString(mistake);
             for (strings_to_print = 0; strings_to_print < queue;
                  strings_to_print++) {
-                text.setString(String::fromUtf8(
-                        lines[strings_to_print].begin(),
-                        lines[strings_to_print].end()));
+                text.setString(lines[strings_to_print]);
                 text.setPosition(
                         30,
                         ((strings_to_print * 25) - (current_string * 25) + 50));
@@ -494,7 +493,7 @@ int main()
                         window.clear();
                         naj = false;
                         count = GetRandomText(&lines);
-                        utf88.clear();
+                        string_by_user.clear();
                         print_correct_letter = false;
 
                         current_letter = 0;
@@ -559,7 +558,7 @@ int main()
                         window.clear();
                         naj = false;
                         count = GetRandomText(&lines);
-                        utf88.clear();
+                        string_by_user.clear();
                         print_correct_letter = false;
                         mistake.clear();
                         current_letter = 0;
@@ -593,7 +592,7 @@ int main()
                         window.clear();
                         naj = false;
                         count = GetRandomText(&lines);
-                        utf88.clear();
+                        string_by_user.clear();
                         print_correct_letter = false;
 
                         current_letter = 0;
