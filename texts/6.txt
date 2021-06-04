@@ -1,0 +1,10 @@
+Make can decide where to start through topological sorting.
+Each command line must begin with a tab character to be
+recognized as a command. The tab is a whitespace character,
+but the space character does not have the same special meaning.
+This is problematic, since there may be no visual difference
+between a tab and a series of space characters. This aspect
+of the syntax of makefiles is often subject to criticism;
+it has been described by Eric S. Raymond as "one of the worst
+design botches in the history of Unix".
+ 
