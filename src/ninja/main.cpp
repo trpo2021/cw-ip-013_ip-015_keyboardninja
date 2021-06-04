@@ -532,7 +532,7 @@ int main()
             for (int i = 0; i < 2; i++) {
                 Mesg.setString(mesg[i]);
                 Mesg.setPosition(
-                        (width / 2) - 100 - 60 * i, (height / 2) + i * 50);
+                        (525 - 100 - 60 * i), (660/2) + i * 50);
                 window.draw(Mesg);
             }
             window.display();
