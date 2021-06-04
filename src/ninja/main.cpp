@@ -4,7 +4,6 @@
 #include <libninja/randomtext.hpp>
 #include <libninja/stars.hpp>
 #include <libninja/switcher.hpp>
-#include <sstream>
 
 using namespace sf;
 
@@ -32,13 +31,13 @@ int main()
     long unsigned int current_letter;
     int current_string;
     int strings_to_print;
-    string* lines = NULL;
+    string* lines = nullptr;
     int mistakes;
     int queue;
     std::string mistakes_print;
     std::string mistake_message;
-    int height = 660;
-    int width = 1050;
+    unsigned int height = 660;
+    unsigned int width = 1050;
     RenderWindow window(sf::VideoMode(width, height), "ninja");
     //////////////
     Texture menuBackground1;
@@ -101,7 +100,7 @@ int main()
     current_string = 0;
     queue = 5;
     while (ismenu) {
-        Event event;
+        Event event{};
         while (menuNum == 1) {
             mistake.clear();
             while (window.pollEvent(event)) {
@@ -114,12 +113,12 @@ int main()
                 if (event.type == Event::Resized) {
                     height = event.size.height;
                     width = event.size.width;
-                    switcher(menuNum, position, 12, height, width);
+                    switcher(menuNum, position, height, width);
                 }
             }
             window.draw(menuBg1);
             window.display();
-            switcher(menuNum, position, 12, height, width);
+            switcher(menuNum, position, height, width);
             if (IntRect(position[0], position[1], position[2], position[3])
                         .contains(Mouse::getPosition(window))) {
                 if ((Mouse::isButtonPressed(Mouse::Left)) && (!naj)) {
@@ -129,7 +128,7 @@ int main()
                     if ((event.type == Event::MouseButtonReleased) && (naj)
                         && (event.mouseButton.button == Mouse::Left)) {
                         menuNum = 2;
-                        switcher(menuNum, position, 12, height, width);
+                        switcher(menuNum, position, height, width);
                         menuBackground1.loadFromFile(
                                 "src/resources/images/fon1.jpg");
                         Sprite menuBg1(menuBackground1);
@@ -147,7 +146,7 @@ int main()
                     if ((event.type == Event::MouseButtonReleased) && (naj)
                         && (event.mouseButton.button == Mouse::Left)) {
                         menuNum = 3;
-                        switcher(menuNum, position, 12, height, width);
+                        switcher(menuNum, position, height, width);
                         menuBackground1.loadFromFile(
                                 "src/resources/images/fon2.jpg");
                         Sprite menuBg1(menuBackground1);
@@ -180,7 +179,7 @@ int main()
                 if (event.type == Event::Resized) {
                     height = event.size.height;
                     width = event.size.width;
-                    switcher(menuNum, position, 12, height, width);
+                    switcher(menuNum, position, height, width);
                 }
             }
             window.draw(menuBg1);
@@ -206,8 +205,8 @@ int main()
                                 "src/resources/images/fon3.jpg");
                         Sprite menuBg1(menuBackground1);
                         menuBg1.setPosition(0, 0);
-                        switcher(menuNum, position, 12, height, width);
-                        if (print_correct_letter == true)
+                        switcher(menuNum, position, height, width);
+                        if (print_correct_letter)
                             window.draw(RightLetter);
                         window.draw(text);
                         window.display();
@@ -237,8 +236,8 @@ int main()
                                 "src/resources/images/fon3.jpg");
                         Sprite menuBg1(menuBackground1);
                         menuBg1.setPosition(0, 0);
-                        switcher(menuNum, position, 12, height, width);
-                        if (print_correct_letter == true)
+                        switcher(menuNum, position, height, width);
+                        if (print_correct_letter)
                             window.draw(RightLetter);
                         window.draw(text);
                         window.display();
@@ -268,8 +267,8 @@ int main()
                                 "src/resources/images/fon3.jpg");
                         Sprite menuBg1(menuBackground1);
                         menuBg1.setPosition(0, 0);
-                        switcher(menuNum, position, 12, height, width);
-                        if (print_correct_letter == true)
+                        switcher(menuNum, position, height, width);
+                        if (print_correct_letter)
                             window.draw(RightLetter);
                         window.draw(text);
                         window.display();
@@ -281,7 +280,7 @@ int main()
 
             if (Keyboard::isKeyPressed(Keyboard::Escape)) {
                 menuNum = 1;
-                switcher(menuNum, position, 12, height, width);
+                switcher(menuNum, position, height, width);
                 menuBackground1.loadFromFile("src/resources/images/fon.jpg");
                 Sprite menuBg1(menuBackground1);
                 menuBg1.setPosition(0, 0);
@@ -299,7 +298,7 @@ int main()
             window.display();
             if (Keyboard::isKeyPressed(Keyboard::Escape)) {
                 menuNum = 1;
-                switcher(menuNum, position, 12, height, width);
+                switcher(menuNum, position, height, width);
                 menuBackground1.loadFromFile("src/resources/images/fon.jpg");
                 Sprite menuBg1(menuBackground1);
                 menuBg1.setPosition(0, 0);
@@ -352,7 +351,7 @@ int main()
             Mistakes.setString(mistakes_print);
             RightLetter.setString(String::fromUtf8(utf88.begin(), utf88.end()));
             window.draw(menuBg1);
-            if (print_correct_letter == true)
+            if (print_correct_letter)
                 window.draw(RightLetter);
             series = "Current series: ";
             series += std::to_string(intseries);
@@ -387,21 +386,21 @@ int main()
                 timepause = starttime - timeremain - mistakes * penalty
                         + countseries * bonus; //////////////////////
                 menuNum = 5;
-                switcher(menuNum, position, 12, height, width);
+                switcher(menuNum, position, height, width);
                 menuBackground1.loadFromFile("src/resources/images/fon4.jpg");
                 Sprite menuBg1(menuBackground1);
                 menuBg1.setPosition(0, 0);
             }
             if (timeremain <= 0) {
                 menuNum = 6;
-                switcher(menuNum, position, 12, height, width);
+                switcher(menuNum, position, height, width);
                 menuBackground1.loadFromFile("src/resources/images/fon5.jpg");
                 Sprite menuBg1(menuBackground1);
                 menuBg1.setPosition(0, 0);
             }
             if (current_string == (count - 1)) {
                 menuNum = 6;
-                switcher(menuNum, position, 12, height, width);
+                switcher(menuNum, position, height, width);
                 int star = stars(mistakes, timeremain);
                 switch (star) {
                 case 0:
@@ -439,7 +438,7 @@ int main()
                 if (event.type == Event::Resized) {
                     height = event.size.height;
                     width = event.size.width;
-                    switcher(menuNum, position, 12, height, width);
+                    switcher(menuNum, position, height, width);
                 }
             }
             window.draw(menuBg1);
@@ -460,8 +459,8 @@ int main()
                                 "src/resources/images/fon3.jpg");
                         Sprite menuBg1(menuBackground1);
                         menuBg1.setPosition(0, 0);
-                        switcher(menuNum, position, 12, height, width);
-                        if (print_correct_letter == true)
+                        switcher(menuNum, position, height, width);
+                        if (print_correct_letter)
                             window.draw(RightLetter);
                         window.draw(text);
 
@@ -491,7 +490,7 @@ int main()
                                 "src/resources/images/fon.jpg");
                         Sprite menuBg1(menuBackground1);
                         menuBg1.setPosition(0, 0);
-                        switcher(menuNum, position, 12, height, width);
+                        switcher(menuNum, position, height, width);
                         window.clear();
                         naj = false;
                         count = GetRandomText(&lines);
@@ -516,7 +515,7 @@ int main()
                 if (event.type == Event::Resized) {
                     height = event.size.height;
                     width = event.size.width;
-                    switcher(menuNum, position, 12, height, width);
+                    switcher(menuNum, position, height, width);
                 }
             }
             window.draw(menuBg1);
@@ -557,7 +556,7 @@ int main()
                                 "src/resources/images/fon3.jpg");
                         Sprite menuBg1(menuBackground1);
                         menuBg1.setPosition(0, 0);
-                        switcher(menuNum, position, 12, height, width);
+                        switcher(menuNum, position, height, width);
                         window.clear();
                         naj = false;
                         count = GetRandomText(&lines);
@@ -591,7 +590,7 @@ int main()
                                 "src/resources/images/fon.jpg");
                         Sprite menuBg1(menuBackground1);
                         menuBg1.setPosition(0, 0);
-                        switcher(menuNum, position, 12, height, width);
+                        switcher(menuNum, position, height, width);
                         window.clear();
                         naj = false;
                         count = GetRandomText(&lines);
