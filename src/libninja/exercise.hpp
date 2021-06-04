@@ -14,7 +14,7 @@ void InvoiceProcessing(
         sf::Event& event,
         long unsigned int* current_letter,
         std::string lines[],
-        std::string& utf88,
+        std::string& string_by_user,
         std::string& mistake,
         int current_string,
         int* intseries,
@@ -24,7 +24,7 @@ void InvoiceProcessing(
 void NextString(
         long unsigned int* current_letter,
         std::string lines[],
-        std::string& utf88,
+        std::string& string_by_user,
         int* current_string,
         int* queue,
         int count);
@@ -34,7 +34,7 @@ void Exercise(
         bool* print_correct_letter,
         long unsigned int* current_letter,
         std::string lines[],
-        std::string& utf88,
+        std::string& string_by_user,
         std::string& mistake,
         int* current_string,
         int* mistakes,
