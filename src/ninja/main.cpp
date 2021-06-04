@@ -531,8 +531,7 @@ int main()
                     + std::to_string(timeremain % (int)60);
             for (int i = 0; i < 2; i++) {
                 Mesg.setString(mesg[i]);
-                Mesg.setPosition(
-                        (525 - 100 - 60 * i), (660/2) + i * 50);
+                Mesg.setPosition((525 - 100 - 60 * i), (660 / 2) + i * 50);
                 window.draw(Mesg);
             }
             window.display();
