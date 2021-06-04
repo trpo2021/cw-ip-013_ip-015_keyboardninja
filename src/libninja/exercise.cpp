@@ -77,7 +77,7 @@ void Exercise(
         int count,
         int* intseries)
 {
-    int keycode = 0;
+    int keycode;
     if (event.type == sf::Event::TextEntered) {
         *print_correct_letter = true;
         std::cout << "Key Pressed " << event.key.code << "\n";

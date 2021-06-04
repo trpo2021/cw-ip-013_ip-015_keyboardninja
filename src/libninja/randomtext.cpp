@@ -8,9 +8,9 @@ int GetRandomNumber(int min, int max)
 
 int GetRandomText(std::string** _lines)
 {
-    srand(time(NULL));
-    int number_of_text = 0;
-    int count = 0;
+    srand(time(nullptr));
+    int number_of_text;
+    int count;
     std::string filename;
     number_of_text = GetRandomNumber(1, 6);
     filename = "texts/" + std::to_string(number_of_text) + ".txt";
