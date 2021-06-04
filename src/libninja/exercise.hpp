@@ -2,7 +2,6 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <string>
-#include <unistd.h>
 
 bool Keyhalding(
         int current_string,
