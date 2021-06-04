@@ -38,7 +38,7 @@ CTEST(mistake_false, exercise)
     int current_string = 0;
     int mistakes = 0;
     int intseries = 0;
-    int keycode = 65;
+    int keycode = 77;
     InvoiceProcessing(
             event,
             &current_letter,
@@ -54,7 +54,7 @@ CTEST(mistake_false, exercise)
 
 CTEST(nextstring, exercise)
 {
-    long unsigned int current_letter = 46;
+    long unsigned int current_letter = 55;
     std::string* lines = nullptr;
     GetStringsFromFileS("texts/1.txt", &lines);
     std::string utf88 = "BCF";
@@ -76,7 +76,7 @@ CTEST(series_up, exercise)
     int current_string = 0;
     int mistakes = 0;
     int intseries = 5;
-    int keycode = 65;
+    int keycode = 77;
     InvoiceProcessing(
             event,
             &current_letter,
@@ -118,7 +118,7 @@ CTEST(series_down, exercise)
 CTEST(current_string_clear, exercise)
 {
     bool flag = false;
-    long unsigned int current_letter = 46;
+    long unsigned int current_letter = 55;
     std::string* lines = nullptr;
     GetStringsFromFileS("texts/1.txt", &lines);
     std::string utf88 = "BCF";
@@ -134,7 +134,7 @@ CTEST(current_string_clear, exercise)
 CTEST(utf88_clear, exercise)
 {
     bool flag = false;
-    long unsigned int current_letter = 46;
+    long unsigned int current_letter = 55;
     std::string* lines = nullptr;
     GetStringsFromFileS("texts/1.txt", &lines);
     std::string utf88 = "BCF";
