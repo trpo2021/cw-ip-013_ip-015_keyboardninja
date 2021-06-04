@@ -37,6 +37,11 @@ void InvoiceProcessing(
             mistake = mistake + "space";
         else
             mistake = mistake + lines[current_string][*current_letter];
+        mistake = mistake + " yours - ";
+        if ((char)(event.key.code) == ' ')
+            mistake = mistake + "space";
+        else
+            mistake = mistake + (char)(event.key.code);
     }
 }
 
