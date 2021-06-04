@@ -16,7 +16,7 @@ void InvoiceProcessing(
         sf::Event& event,
         long unsigned int* current_letter,
         std::string lines[],
-        std::string& utf88,
+        std::string& string_by_user,
         std::string& mistake,
         int current_string,
         int* intseries,
@@ -24,7 +24,7 @@ void InvoiceProcessing(
         int keycode)
 {
     if (Keyhalding(current_string, keycode, *current_letter, lines)) {
-        utf88 = utf88 + (char)(event.key.code);
+        string_by_user = string_by_user + (char)(event.key.code);
         (*current_letter)++;
         (*intseries)++;
         mistake.clear();
@@ -48,13 +48,13 @@ void InvoiceProcessing(
 void NextString(
         long unsigned int* current_letter,
         std::string lines[],
-        std::string& utf88,
+        std::string& string_by_user,
         int* current_string,
         int* queue,
         int count)
 {
     if (*current_letter == lines[*current_string].size()) {
-        utf88.clear();
+        string_by_user.clear();
         lines[*current_string].clear();
         *current_letter = 0;
         (*current_string)++;
@@ -69,7 +69,7 @@ void Exercise(
         bool* print_correct_letter,
         long unsigned int* current_letter,
         std::string lines[],
-        std::string& utf88,
+        std::string& string_by_user,
         std::string& mistake,
         int* current_string,
         int* mistakes,
@@ -86,12 +86,18 @@ void Exercise(
                 event,
                 current_letter,
                 lines,
-                utf88,
+                string_by_user,
                 mistake,
                 *current_string,
                 intseries,
                 mistakes,
                 keycode);
-        NextString(current_letter, lines, utf88, current_string, queue, count);
+        NextString(
+                current_letter,
+                lines,
+                string_by_user,
+                current_string,
+                queue,
+                count);
     }
 }
