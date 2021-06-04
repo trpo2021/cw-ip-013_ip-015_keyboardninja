@@ -1,9 +1,8 @@
 #include <libninja/readingfile.hpp>
 
-using namespace std;
-int CountLinesInFile(string filename)
+int CountLinesInFile(std::string filename)
 {
-    ifstream F(filename, ios::in);
+    std::ifstream F(filename, std::ios::in);
     if (!F) {
         return -1;
     }
@@ -17,20 +16,20 @@ int CountLinesInFile(string filename)
     return count;
 }
 
-int GetStringsFromFileS(string filename, string** _lines)
+int GetStringsFromFileS(std::string filename, std::string** _lines)
 {
-    string* lines;
+    std::string* lines;
     int n = CountLinesInFile(filename);
     if (n == -1)
         return -1;
-    ifstream F(filename);
+    std::ifstream F(filename);
     if (!F)
         return -1;
 
     try {
-        lines = new string[n];
+        lines = new std::string[n];
     } catch (std::bad_alloc& e) {
-        cout << e.what() << endl;
+        std::cout << e.what() << std::endl;
         F.close();
         return -2;
     }
