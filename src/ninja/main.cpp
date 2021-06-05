@@ -96,6 +96,8 @@ int main()
     mistakes = 0;
     current_string = 0;
     queue = 5;
+    if (IsFilesExists() == -1)
+        exit(2);
     while (ismenu) {
         sf::Event event;
         while (menuNum == 1) {
