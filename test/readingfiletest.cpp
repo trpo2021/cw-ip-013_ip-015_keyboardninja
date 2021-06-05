@@ -1,5 +1,12 @@
 #include <ctest.h>
 #include <libninja/readingfile.hpp>
+
+CTEST(exist_txt, lines)
+{
+    const int exp = IsFilesExists();
+    ASSERT_EQUAL(exp, 0);
+}
+
 CTEST(count_real, lines)
 {
     std::string* lines = nullptr;

@@ -1,5 +1,19 @@
 #include <libninja/readingfile.hpp>
 
+int IsFilesExists()
+{
+    std::string filename;
+    for (int i = 1; i < 6; i++) {
+        filename = "texts/" + std::to_string(i) + ".txt";
+        std::ifstream F(filename, std::ios::in);
+        if (!F) {
+            return -1;
+            std::cout << "Error! Can't open " + filename << std::endl;
+        }
+    }
+    return 0;
+}
+
 int CountLinesInFile(std::string filename)
 {
     std::ifstream F(filename, std::ios::in);
