@@ -1,6 +1,6 @@
 #include <ctest.h>
 #include <libninja/exercise.hpp>
-#include <libninja/readingfile.hpp>
+#include <libninja/randomtext.hpp>
 
 CTEST(keycode, true)
 {
