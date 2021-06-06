@@ -1,0 +1,8 @@
+In statistics, Cochrans C test, named after William G. Cochran,
+is a one-sided upper limit variance outlier test. The C test is
+used to decide if a single estimate of a variance is significantly
+larger than a group of variances with which the single estimate
+is supposed to be comparable. The C test is discussed in many
+text books and has been recommended by IUPAC and ISO. Cochrans C
+test should not be confused with Cochran's Q test, which applies
+to the analysis of two-way randomized block designs.

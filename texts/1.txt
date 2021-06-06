@@ -1,0 +1,10 @@
+Make is typically used to build executable programs and
+libraries from source code. Generally though, Make is
+applicable to any process that involves executing arbitrary
+commands to transform a source file to a target result.
+For example, Make could be used to detect a change made to
+an image file and the transformation actions might be to
+convert the file to some specific format, copy the result
+into a content management system, and then send e-mail to
+a predefined set of users indicating that the above actions
+were performed.

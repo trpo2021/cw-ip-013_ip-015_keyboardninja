@@ -1,0 +1,8 @@
+Git is software for tracking changes in any set of files, usually
+used for coordinating work among programmers collaboratively
+developing source code during software development. Its goals
+include speed, data integrity, and support for distributed,
+non-linear workflows. Git was created by Linus Torvalds in 2005
+for development of the Linux kernel, with other kernel developers
+contributing to its initial development. Since 2005, Junio Hamano
+has been the core maintainer. 

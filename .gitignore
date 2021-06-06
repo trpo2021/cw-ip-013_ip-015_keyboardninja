@@ -1,0 +1,9 @@
+bin/ninja
+bin/test-app
+obj/src/libninja/*.o
+obj/src/ninja/*.o
+obj/src/libninja/*.d
+obj/src/ninja/*.d
+obj/src/libninja/libninja.a
+obj/test/*.o
+obj/test/*.d
