@@ -1,5 +1,5 @@
 #include <ctest.h>
-#include <libninja/readingfile.hpp>
+#include <libninja/randomtext.hpp>
 
 CTEST(exist_txt, lines)
 {
